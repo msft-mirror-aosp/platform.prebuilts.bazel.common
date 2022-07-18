@@ -41,6 +41,18 @@ darwin_nojdk_sha256="$(echo "${platforms_json}" | jq --raw-output '.[].macos.noj
 linux_nojdk_url="$(echo "${platforms_json}" | jq --raw-output '.[].linux.nojdk_url')"
 linux_nojdk_sha256="$(echo "${platforms_json}" | jq --raw-output '.[].linux.nojdk_sha256')"
 
+function check_sha256() {
+  local sha256=$1; shift
+  local downloaded_file=$1; shift
+    echo "Verifying checksum for ${downloaded_file} to be ${sha256}.."
+    if ! echo "${sha256} ${downloaded_file}" | sha256sum --check --status ; then
+      echo "ERROR: checksum of ${downloaded_file} did not match!"
+      echo "${sha256} ${downloaded_file}" | sha256sum --check --status
+      echo "${sha256} ${downloaded_file}" | sha256sum --check
+      exit 1
+    fi
+}
+
 function download_and_verify() {
     local os=$1; shift
     local url=$1; shift
@@ -52,28 +64,27 @@ function download_and_verify() {
     echo "Downloading ${os} bazel binary for ${commit}.."
     downloaded_file="bazel_nojdk-${commit}-${os}-x86_64"
     curl "${url}" --output "${downloaded_file}"
-    echo "Verifying checksum for ${downloaded_file} to be ${sha256}.."i
-    if ! echo "${sha256} ${downloaded_file}" | sha256sum --check --status ; then
-      echo "ERROR: checksum of ${downloaded_file} did not match!"
-      echo "${sha256} ${downloaded_file}" | sha256sum --check --status
-      echo "${sha256} ${downloaded_file}" | sha256sum --check
-      exit 1
-    fi
+
+    check_sha256 "${sha256}" "${downloaded_file}"
 
     echo "Setting up bazel symlink for ${os}.."
     rm -f bazel && ln -s "${downloaded_file}" bazel
     chmod +x "${downloaded_file}"
 }
 
+common_bazel_dir=$(pwd)
 # Update Linux binary.
-cd $(dirname "$0")/../linux-x86_64
+cd ../linux-x86_64
+linux_bazel_dir=$(pwd)
 download_and_verify "linux" "${linux_nojdk_url}" "${linux_nojdk_sha256}"
 downloaded_file="bazel_nojdk-${commit}-linux-x86_64"
 ./${downloaded_file} license > LICENSE
-
+cp LICENSE ../common/
 # Update macOS binary.
-cp LICENSE "$(dirname "$0")/../darwin-x86_64/"
-cd "$(dirname "$0")/../darwin-x86_64"
+cp LICENSE "../darwin-x86_64/"
+cd "../darwin-x86_64"
 download_and_verify "darwin" "${darwin_nojdk_url}" "${darwin_nojdk_sha256}"
+${common_bazel_dir}/update_java_tools.sh "$commit" "$common_bazel_dir" "$linux_bazel_dir"
 
-echo "Done."
+
+echo "Done. This script may have affected all of prebuilts/bazel/common, prebuilts/bazel/linux-x86_64 and prebuilts/bazel/darwin-x86_64. Be sure to upload changes for all affected git repositories."
