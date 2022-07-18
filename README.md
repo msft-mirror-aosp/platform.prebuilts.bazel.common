@@ -19,18 +19,22 @@ and verify the binaries from the trusted Bazel CI pipeline:
 To get the commit hash for builds, see the [Bazel releases], [Bazel nightlies]
 or [Bazel per-commit builds] sections below.
 
-`update.sh` will also verify that the downloaded binary has the correct SHA-256
-checksum as provided from Bazel CI metadata.
+`update.sh` will also:
+  - Download the remote_java_tools prebuilts corresponding
+    to the downloaded Bazel binary
+  - verify that the downloaded binary has the correct SHA-256
+    checksum as provided from Bazel CI metadata.
 
-Once you have the binaries, you will need to create and send two CLs,
-to update the Linux and macOS prebuilts that live in separate Git repositories
-i.e.
+Once you have the binaries, you will need to create and send up to three CLs,
+to update the Linux, macOS, and platform-agnostic prebuilts that live in separate
+Git repositories, i.e.
 
 *   https://android.googlesource.com/platform/prebuilts/bazel/linux-x86_64/
 *   https://android.googlesource.com/platform/prebuilts/bazel/darwin-x86_64/
+*   https://android.googlesource.com/platform/prebuilts/bazel/common/
 
 The update script does not automatically create CLs, so you need to create them
-manually. In the two CLs descriptions, mention the testing you did, which should
+manually. In each CL description, mention the testing you did, which should
 at least include:
 
 *   For release builds only: **Verifying the file signature**, e.g.
@@ -44,8 +48,7 @@ at least include:
 *   **Verifying basic user journeys succeed.**
     *   `./build/bazel/scripts/run_presubmits.sh` (or let TreeHugger run these presubmits for you)
 
-Ensure that the Linux and Darwin CLs are set to the same Gerrit topic so they
-are submitted together.
+Ensure that the CLs are set to the same Gerrit topic so they are submitted together.
 
 ## Obtaining Bazel binaries
 
