@@ -41,7 +41,8 @@ git clone https://github.com/bazelbuild/bazel.git
 cd bazel
 git checkout ${commit}
 echo "gathering external repository data..."
-/usr/bin/bazel-real query "//external:remote_java_tools + //external:remote_java_tools_linux" --output=xml > repo_infos.xml
+/usr/bin/bazel-real build src:bazel_nojdk
+./bazel-bin/src/bazel_nojdk query "//external:remote_java_tools + //external:remote_java_tools_linux" --output=xml > repo_infos.xml
 remote_java_tools_url=$(xmllint --xpath "/query/rule[@name='//external:remote_java_tools']/list[@name='urls']/string[1]/@value" repo_infos.xml|sed -e "s/ value=\"//"|sed -e "s/\"//")
 remote_java_tools_sha256=$(xmllint --xpath "/query/rule[@name='//external:remote_java_tools']/string[@name='sha256']/@value" repo_infos.xml|sed -e "s/ value=\"//"|sed -e "s/\"//")
 remote_java_tools_linux_url=$(xmllint --xpath "/query/rule[@name='//external:remote_java_tools_linux']/list[@name='urls']/string[1]/@value" repo_infos.xml|sed -e "s/ value=\"//"|sed -e "s/\"//")
