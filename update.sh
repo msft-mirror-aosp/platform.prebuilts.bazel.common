@@ -84,7 +84,7 @@ cp LICENSE ../common/
 cp LICENSE "../darwin-x86_64/"
 cd "../darwin-x86_64"
 download_and_verify "darwin" "${darwin_nojdk_url}" "${darwin_nojdk_sha256}"
-${common_bazel_dir}/update_java_tools.sh "$commit" "$common_bazel_dir" "$linux_bazel_dir"
+${common_bazel_dir}/update_tools.sh "$commit" "$common_bazel_dir" "$linux_bazel_dir"
 
 
 echo "Done. This script may have affected all of prebuilts/bazel/common, prebuilts/bazel/linux-x86_64 and prebuilts/bazel/darwin-x86_64. Be sure to upload changes for all affected git repositories."
