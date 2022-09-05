@@ -65,3 +65,7 @@ for bin in "${common_bins[@]}"
 do
   unzip -o -d ${linux_bazel_dir}/remote_java_tools_linux java_tools_prebuilt.zip "java_tools/${bin}"
 done
+
+echo "building autocompletion script..."
+/usr/bin/bazel-real build //scripts:bazel-complete.bash
+cp bazel-bin/scripts/bazel-complete.bash ${common_bazel_dir}/bazel-complete.bash
