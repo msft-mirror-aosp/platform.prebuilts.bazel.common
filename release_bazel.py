@@ -220,9 +220,8 @@ def main():
       description="Walks the user through all steps required to cut a new "
       + "Bazel binary (and related artifacts) for AOSP. This script is "
       + "intended for use only by the current Bazel release manager.")
-  parser.add_argument("--commit", default=None,
-                      help="the bazel commit hash to use. If unspecified, " +
-                      "will use the most recent prerelease Bazel")
+  parser.add_argument("--commit", default=None, required=True,
+                      help="The bazel commit hash to use. Must be specified.")
   parser.add_argument("--verify-only", action=argparse.BooleanOptionalAction,
                       help="If true, will only do verification and CL "
                       + "creation if verification passes.")
