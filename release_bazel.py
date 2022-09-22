@@ -13,7 +13,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """Manages the release process for Bazel binary.
 
 This script walks the user through all steps required to cut a new
@@ -24,6 +23,7 @@ Use './release_bazel.py --help` for usage details.
 """
 
 import argparse
+import os
 import pathlib
 import subprocess
 import sys
@@ -41,8 +41,7 @@ UPDATE_SCRIPT_PATH: Final[str] = "prebuilts/bazel/common/update.sh"
 # All project directories that may be changed as a result of updating
 # release prebuilts.
 AFFECTED_PROJECT_DIRECTORIES: Final[list[str]] = [
-    "prebuilts/bazel/common",
-    "prebuilts/bazel/linux-x86_64",
+    "prebuilts/bazel/common", "prebuilts/bazel/linux-x86_64",
     "prebuilts/bazel/darwin-x86_64"
 ]
 MIXED_DROID_PATH: Final[str] = "build/bazel/ci/mixed_droid.sh"
@@ -76,7 +75,8 @@ def prompt(s):
   """Prompts the user for y/n input using the given string.
 
   Will not return until the user specifies either "y" or "n".
-  Returns True if the user responded "y" and False if "n"."""
+  Returns True if the user responded "y" and False if "n".
+  """
   while True:
     response = input(s + " (y/n): ")
     if response == "y":
@@ -100,26 +100,27 @@ def target_update_commit(args):
 def ensure_commit_is_new(commit):
   """Verify that the target commit is newer than the current Bazel."""
   # TODO(b/239044269): Automate instead of asking the user.
-  is_new_input = prompt("Is commit %s newer than the current Bazel " % commit
-                        + "prebuilt's commit?")
+  is_new_input = prompt("Is commit %s newer than the current Bazel " % commit +
+                        "prebuilt's commit?")
   if not is_new_input:
-    print(f"commit {commit} is not newer than the current Bazel commit. "
-          + "Do not release a new Bazel.")
+    print(f"commit {commit} is not newer than the current Bazel commit. " +
+          "Do not release a new Bazel.")
     sys.exit(1)
 
 
 def ensure_projects_clean():
   """Ensure that relevant projects in the working directory are ready.
 
-  The relevant projects must be clean, have fresh branches, and synced."""
+  The relevant projects must be clean, have fresh branches, and synced.
+  """
   # TODO(b/239044269): Automate instead of asking the user.
   print_step_header("Manual step: Clear and sync all local projects.")
-  is_new_input = prompt("Are all relevant local projects in your working "
-                        + "directory clean (fresh branches) and synced to "
-                        + "HEAD?")
+  is_new_input = prompt("Are all relevant local projects in your working " +
+                        "directory clean (fresh branches) and synced to " +
+                        "HEAD?")
   if not is_new_input:
-    print("Please ready your local projects before continuing with the "
-          + "release script")
+    print("Please ready your local projects before continuing with the " +
+          "release script")
     sys.exit(1)
 
 
@@ -127,7 +128,8 @@ def run_update(commit):
   """Run the update script to update prebuilts.
 
   Retrieves a prebuilt bazel at the given commit, and updates other checked
-  in bazel prebuilts using bazel source tree at that commit."""
+  in bazel prebuilts using bazel source tree at that commit.
+  """
 
   print_step_header("Updating prebuilts...")
   update_script_path = pathlib.Path(UPDATE_SCRIPT_PATH).resolve()
@@ -139,11 +141,8 @@ def run_update(commit):
     logfile_path = temp_file_path("update.log")
     print(f"Streaming results to {logfile_path}")
     with logfile_path.open("w") as logfile:
-      result = subprocess.run(cmd_args,
-                              cwd=target_cwd,
-                              check=False,
-                              stdout=logfile,
-                              stderr=logfile)
+      result = subprocess.run(
+          cmd_args, cwd=target_cwd, check=False, stdout=logfile, stderr=logfile)
       if result.returncode != 0:
         print(f"Update failed. Check {logfile_path} for failure info.")
         sys.exit(1)
@@ -159,12 +158,12 @@ def verify_update():
   Failure during this step will require manual intervention by the user;
   a failure might be fixed by updating other dependencies in the Android
   tree, or might indicate that Bazel at the given commit is problematic
-  and the release may need to be abandoned."""
+  and the release may need to be abandoned.
+  """
 
   print_step_header("Verifying the update...")
   cmd_args = [MIXED_DROID_PATH]
-  env = {"TARGET_BUILD_VARIANT": "userdebug",
-         "TARGET_PRODUCT": "aosp_arm64"}
+  env = {"TARGET_BUILD_VARIANT": "userdebug", "TARGET_PRODUCT": "aosp_arm64", "PATH" : os.environ["PATH"]}
   env_string = " ".join([k + "=" + v for k, v in env.items()])
   cmd_string = " ".join(cmd_args)
 
@@ -173,17 +172,14 @@ def verify_update():
     logfile_path = temp_file_path("verify.log")
     print(f"Streaming results to {logfile_path}")
     with logfile_path.open("w") as logfile:
-      result = subprocess.run(cmd_args,
-                              env=env,
-                              check=False,
-                              stdout=logfile,
-                              stderr=logfile)
+      result = subprocess.run(
+          cmd_args, env=env, check=False, stdout=logfile, stderr=logfile)
 
     if result.returncode != 0:
       print(f"Verification failed. Check {logfile_path} for failure info.")
-      print("Please remedy all issues until verification runs successfully.\n"
-            + "You may skip to the verify step in this script by using "
-            + "--verify-only")
+      print("Please remedy all issues until verification runs successfully.\n" +
+            "You may skip to the verify step in this script by using " +
+            "--verify-only")
       sys.exit(1)
     print("Verification successful.")
   else:
@@ -192,24 +188,26 @@ def verify_update():
 
 def create_commits():
   """Create commits for all projects related to the Bazel release."""
-  print_step_header("Manual step: Create CLs for all projects that need to be "
-                    + "updated.")
+  print_step_header(
+      "Manual step: Create CLs for all projects that need to be " + "updated.")
   # TODO(b/239044269): Automate instead of asking the user.
-  commits_created = prompt("Have you created CLs for all projects that need "
-                           + "to be updated?")
+  commits_created = prompt("Have you created CLs for all projects that need " +
+                           "to be updated?")
   if not commits_created:
-    print("Create CLs for all projects. After approval and CL submission, the "
-          + "release is complete.")
+    print(
+        "Create CLs for all projects. After approval and CL submission, the " +
+        "release is complete.")
     sys.exit(1)
 
 
 def verify_run_from_top():
   """Verifies that this script is being run from the workspace root.
 
-  Prints an error and exits if this is not the case."""
+  Prints an error and exits if this is not the case.
+  """
   if not pathlib.Path(UPDATE_SCRIPT_PATH).is_file():
-    print(f"{UPDATE_SCRIPT_PATH} not found. Are you running from the "
-          + "source root?")
+    print(f"{UPDATE_SCRIPT_PATH} not found. Are you running from the " +
+          "source root?")
     sys.exit(1)
 
 
@@ -217,18 +215,25 @@ def main():
   verify_run_from_top()
 
   parser = argparse.ArgumentParser(
-      description="Walks the user through all steps required to cut a new "
-      + "Bazel binary (and related artifacts) for AOSP. This script is "
-      + "intended for use only by the current Bazel release manager.")
-  parser.add_argument("--commit", default=None, required=True,
-                      help="The bazel commit hash to use. Must be specified.")
-  parser.add_argument("--verify-only", action=argparse.BooleanOptionalAction,
-                      help="If true, will only do verification and CL "
-                      + "creation if verification passes.")
-  parser.add_argument("--dry-run", action=argparse.BooleanOptionalAction,
-                      help="If true, will not make any changes to local "
-                      + "projects, and will instead output commands that "
-                      + "should be run to do so.")
+      description="Walks the user through all steps required to cut a new " +
+      "Bazel binary (and related artifacts) for AOSP. This script is " +
+      "intended for use only by the current Bazel release manager.")
+  parser.add_argument(
+      "--commit",
+      default=None,
+      required=True,
+      help="The bazel commit hash to use. Must be specified.")
+  parser.add_argument(
+      "--verify-only",
+      action=argparse.BooleanOptionalAction,
+      help="If true, will only do verification and CL " +
+      "creation if verification passes.")
+  parser.add_argument(
+      "--dry-run",
+      action=argparse.BooleanOptionalAction,
+      help="If true, will not make any changes to local " +
+      "projects, and will instead output commands that " +
+      "should be run to do so.")
   args = parser.parse_args()
   global dry_run
   dry_run = args.dry_run
@@ -242,8 +247,8 @@ def main():
   verify_update()
   create_commits()
 
-  print("Bazel release CLs created. After approval and "
-        + "CL submission, the release is complete.")
+  print("Bazel release CLs created. After approval and " +
+        "CL submission, the release is complete.")
 
 
 if __name__ == "__main__":
