@@ -924,8 +924,6 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -971,6 +969,7 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
 --nested_set_depth_limit=
+--override_module=
 --override_repository=
 --profile=path
 --progress_in_terminal_title
@@ -1469,8 +1468,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -1641,6 +1638,7 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --output=
 --output_filter=
 --output_groups=
+--override_module=
 --override_repository=
 --package_path=
 --per_file_copt=
@@ -2302,8 +2300,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -2465,6 +2461,7 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --objccopt=
 --output_filter=
 --output_groups=
+--override_module=
 --override_repository=
 --package_path=
 --per_file_copt=
@@ -3106,8 +3103,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -3270,6 +3265,7 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --objccopt=
 --output_filter=
 --output_groups=
+--override_module=
 --override_repository=
 --package_path=
 --per_file_copt=
@@ -3915,8 +3911,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -4078,6 +4072,7 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --objccopt=
 --output_filter=
 --output_groups=
+--override_module=
 --override_repository=
 --package_path=
 --per_file_copt=
@@ -4721,8 +4716,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -4885,6 +4878,7 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --output={text,json}
 --output_filter=
 --output_groups=
+--override_module=
 --override_repository=
 --package_path=
 --per_file_copt=
@@ -5524,8 +5518,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -5687,6 +5679,7 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --objccopt=
 --output_filter=
 --output_groups=
+--override_module=
 --override_repository=
 --package_path=
 --per_file_copt=
@@ -6340,8 +6333,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -6512,6 +6503,7 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --output=
 --output_filter=
 --output_groups=
+--override_module=
 --override_repository=
 --package_path=
 --per_file_copt=
@@ -6860,8 +6852,6 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -6907,6 +6897,7 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
 --nested_set_depth_limit=
+--override_module=
 --override_repository=
 --packages
 --nopackages
@@ -7092,8 +7083,6 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -7152,6 +7141,7 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
 --nested_set_depth_limit=
+--override_module=
 --override_repository=
 --package_path=
 --profile=path
@@ -7344,8 +7334,6 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -7392,6 +7380,7 @@ BAZEL_COMMAND_HELP_FLAGS="
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
 --nested_set_depth_limit=
+--override_module=
 --override_repository=
 --profile=path
 --progress_in_terminal_title
@@ -7873,8 +7862,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -8036,6 +8023,7 @@ BAZEL_COMMAND_INFO_FLAGS="
 --objccopt=
 --output_filter=
 --output_groups=
+--override_module=
 --override_repository=
 --package_path=
 --per_file_copt=
@@ -8352,8 +8340,6 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -8399,6 +8385,7 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
 --nested_set_depth_limit=
+--override_module=
 --override_repository=
 --profile=path
 --progress_in_terminal_title
@@ -8883,8 +8870,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -9050,6 +9035,7 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --objccopt=
 --output_filter=
 --output_groups=
+--override_module=
 --override_repository=
 --package_path=
 --per_file_copt=
@@ -9378,8 +9364,6 @@ BAZEL_COMMAND_MODQUERY_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -9431,6 +9415,7 @@ BAZEL_COMMAND_MODQUERY_FLAGS="
 --memory_profile_stable_heap_parameters=
 --nested_set_depth_limit=
 --output={text,json,graph}
+--override_module=
 --override_repository=
 --package_path=
 --prefix={indent,depth,none}
@@ -9917,8 +9902,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -10080,6 +10063,7 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --objccopt=
 --output_filter=
 --output_groups=
+--override_module=
 --override_repository=
 --package_path=
 --per_file_copt=
@@ -10427,8 +10411,6 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -10502,6 +10484,7 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --order_output={no,deps,auto,full}
 --order_results
 --output=
+--override_module=
 --override_repository=
 --package_path=
 --profile=path
@@ -11044,8 +11027,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -11207,6 +11188,7 @@ BAZEL_COMMAND_RUN_FLAGS="
 --objccopt=
 --output_filter=
 --output_groups=
+--override_module=
 --override_repository=
 --package_path=
 --per_file_copt=
@@ -11523,8 +11505,6 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -11570,6 +11550,7 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
 --nested_set_depth_limit=
+--override_module=
 --override_repository=
 --profile=path
 --progress_in_terminal_title
@@ -11747,8 +11728,6 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -11808,6 +11787,7 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --memory_profile_stable_heap_parameters=
 --nested_set_depth_limit=
 --only=
+--override_module=
 --override_repository=
 --package_path=
 --profile=path
@@ -12323,8 +12303,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -12486,6 +12464,7 @@ BAZEL_COMMAND_TEST_FLAGS="
 --objccopt=
 --output_filter=
 --output_groups=
+--override_module=
 --override_repository=
 --package_path=
 --per_file_copt=
@@ -12808,8 +12787,6 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
 --noincompatible_disable_target_provider_fields
---incompatible_disable_third_party_license_checking
---noincompatible_disable_third_party_license_checking
 --incompatible_disallow_empty_glob
 --noincompatible_disallow_empty_glob
 --incompatible_disallow_legacy_javainfo
@@ -12855,6 +12832,7 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
 --nested_set_depth_limit=
+--override_module=
 --override_repository=
 --profile=path
 --progress_in_terminal_title
