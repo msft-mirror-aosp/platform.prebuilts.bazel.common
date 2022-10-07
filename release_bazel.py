@@ -23,8 +23,10 @@ Use './release_bazel.py --help` for usage details.
 """
 
 import argparse
+import glob
 import os
 import pathlib
+import re
 import subprocess
 import sys
 import tempfile
@@ -71,6 +73,15 @@ def temp_file_path(filename):
   return result
 
 
+def temp_dir_path(dirname):
+  global log_dir
+  if log_dir is None:
+    log_dir = tempfile.mkdtemp()
+  result = pathlib.Path(log_dir).joinpath(dirname)
+  result.mkdir(exist_ok=True)
+  return result
+
+
 def prompt(s):
   """Prompts the user for y/n input using the given string.
 
@@ -97,14 +108,61 @@ def target_update_commit(args):
   return args.commit
 
 
-def ensure_commit_is_new(commit):
+def current_bazel_commit():
+  """Returns the commit of the current checked-in Bazel binary."""
+  current_bazel_files = glob.glob(
+      "prebuilts/bazel/linux-x86_64/bazel_nojdk-*-linux-x86_64")
+  if len(current_bazel_files) < 1:
+    print("could not find an existing bazel named " +
+          "prebuilts/bazel/linux-x86_64/bazel_nojdk.*")
+    sys.exit(1)
+  if len(current_bazel_files) > 1:
+    print("found multiple bazel binaries under " +
+          "prebuilts/bazel/linux-x86_64. Ensure that project is clean " +
+          f"and synced. Found: {current_bazel_files}")
+    sys.exit(1)
+  match_group = re.search(
+      "^prebuilts/bazel/linux-x86_64/bazel_nojdk-(.*)-linux-x86_64$",
+      current_bazel_files[0])
+  return match_group.group(1)
+
+
+def ensure_commit_is_new(target_commit):
   """Verify that the target commit is newer than the current Bazel."""
-  # TODO(b/239044269): Automate instead of asking the user.
-  is_new_input = prompt("Is commit %s newer than the current Bazel " % commit +
-                        "prebuilt's commit?")
-  if not is_new_input:
-    print(f"commit {commit} is not newer than the current Bazel commit. " +
-          "Do not release a new Bazel.")
+
+  curr_commit = current_bazel_commit()
+
+  if target_commit == curr_commit:
+    print("Requested commit matches current Bazel binary version.\n" +
+          "If this is your first time running this script, this indicates " +
+          "that no new release is necessary.\n\n" +
+          "Alternatively:\n" +
+          "  - If you want to rerun release verification after already " +
+          "running this script, specify --verify-only.\n" +
+          "  - If you want to rerun the update anyway (for example, " +
+          "in the case that updating other tools failed), specify -f.")
+    sys.exit(1)
+
+  clone_dir = temp_dir_path("bazelsrc")
+  print(f"Cloning Bazel into {clone_dir}...")
+  result = subprocess.run(
+      ["git", "clone", "https://github.com/bazelbuild/bazel.git"],
+      cwd=clone_dir,
+      check=False)
+  if result.returncode != 0:
+    print("Clone failed.")
+    sys.exit(1)
+
+  bazel_src_dir = clone_dir.joinpath("bazel")
+  result = subprocess.run(
+      ["git", "merge-base", "--is-ancestor", curr_commit, target_commit],
+      cwd=bazel_src_dir,
+      check=False)
+  if result.returncode != 0:
+    print(f"Requested commit {target_commit} is not a descendant of " +
+          f"current Bazel binary commit {curr_commit}. Are you trying to " +
+          "update to an older commit?\n" +
+          "To force an update anyway, specify -f.")
     sys.exit(1)
 
 
@@ -163,7 +221,11 @@ def verify_update():
 
   print_step_header("Verifying the update...")
   cmd_args = [MIXED_DROID_PATH]
-  env = {"TARGET_BUILD_VARIANT": "userdebug", "TARGET_PRODUCT": "aosp_arm64", "PATH" : os.environ["PATH"]}
+  env = {
+      "TARGET_BUILD_VARIANT": "userdebug",
+      "TARGET_PRODUCT": "aosp_arm64",
+      "PATH": os.environ["PATH"]
+  }
   env_string = " ".join([k + "=" + v for k, v in env.items()])
   cmd_string = " ".join(cmd_args)
 
@@ -224,6 +286,12 @@ def main():
       required=True,
       help="The bazel commit hash to use. Must be specified.")
   parser.add_argument(
+      "--force",
+      "-f",
+      action=argparse.BooleanOptionalAction,
+      help="If true, will update bazel to the given commit " +
+      "even if it is older than the current bazel binary.")
+  parser.add_argument(
       "--verify-only",
       action=argparse.BooleanOptionalAction,
       help="If true, will only do verification and CL " +
@@ -240,7 +308,8 @@ def main():
 
   if not args.verify_only:
     commit = target_update_commit(args)
-    ensure_commit_is_new(commit)
+    if not args.force:
+      ensure_commit_is_new(commit)
     ensure_projects_clean()
     run_update(commit)
 
