@@ -10,6 +10,11 @@ filegroup(
     srcs = ["java_tools/JacocoCoverage_jarjar_deploy.jar"],
 )
 
+java_import(
+    name = "jacoco_coverage_runner",
+    jars = ["java_tools/JacocoCoverage_jarjar_deploy.jar"],
+)
+
 filegroup(
     name = "JacocoCoverage",
     srcs = ["java_tools/JacocoCoverage_jarjar_deploy.jar"],
