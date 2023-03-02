@@ -1532,6 +1532,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noincompatible_disallow_legacy_javainfo
 --incompatible_disallow_legacy_py_provider
 --noincompatible_disallow_legacy_py_provider
+--incompatible_disallow_sdk_frameworks_attributes
+--noincompatible_disallow_sdk_frameworks_attributes
 --incompatible_disallow_struct_provider_syntax
 --noincompatible_disallow_struct_provider_syntax
 --incompatible_disallow_symlink_file_to_dir
@@ -2425,6 +2427,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noincompatible_disallow_legacy_javainfo
 --incompatible_disallow_legacy_py_provider
 --noincompatible_disallow_legacy_py_provider
+--incompatible_disallow_sdk_frameworks_attributes
+--noincompatible_disallow_sdk_frameworks_attributes
 --incompatible_disallow_struct_provider_syntax
 --noincompatible_disallow_struct_provider_syntax
 --incompatible_disallow_symlink_file_to_dir
@@ -3286,6 +3290,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noincompatible_disallow_legacy_javainfo
 --incompatible_disallow_legacy_py_provider
 --noincompatible_disallow_legacy_py_provider
+--incompatible_disallow_sdk_frameworks_attributes
+--noincompatible_disallow_sdk_frameworks_attributes
 --incompatible_disallow_struct_provider_syntax
 --noincompatible_disallow_struct_provider_syntax
 --incompatible_disallow_symlink_file_to_dir
@@ -4152,6 +4158,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noincompatible_disallow_legacy_javainfo
 --incompatible_disallow_legacy_py_provider
 --noincompatible_disallow_legacy_py_provider
+--incompatible_disallow_sdk_frameworks_attributes
+--noincompatible_disallow_sdk_frameworks_attributes
 --incompatible_disallow_struct_provider_syntax
 --noincompatible_disallow_struct_provider_syntax
 --incompatible_disallow_symlink_file_to_dir
@@ -5015,6 +5023,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noincompatible_disallow_legacy_javainfo
 --incompatible_disallow_legacy_py_provider
 --noincompatible_disallow_legacy_py_provider
+--incompatible_disallow_sdk_frameworks_attributes
+--noincompatible_disallow_sdk_frameworks_attributes
 --incompatible_disallow_struct_provider_syntax
 --noincompatible_disallow_struct_provider_syntax
 --incompatible_disallow_symlink_file_to_dir
@@ -5875,6 +5885,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noincompatible_disallow_legacy_javainfo
 --incompatible_disallow_legacy_py_provider
 --noincompatible_disallow_legacy_py_provider
+--incompatible_disallow_sdk_frameworks_attributes
+--noincompatible_disallow_sdk_frameworks_attributes
 --incompatible_disallow_struct_provider_syntax
 --noincompatible_disallow_struct_provider_syntax
 --incompatible_disallow_symlink_file_to_dir
@@ -6748,6 +6760,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noincompatible_disallow_legacy_javainfo
 --incompatible_disallow_legacy_py_provider
 --noincompatible_disallow_legacy_py_provider
+--incompatible_disallow_sdk_frameworks_attributes
+--noincompatible_disallow_sdk_frameworks_attributes
 --incompatible_disallow_struct_provider_syntax
 --noincompatible_disallow_struct_provider_syntax
 --incompatible_disallow_symlink_file_to_dir
@@ -8431,6 +8445,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noincompatible_disallow_legacy_javainfo
 --incompatible_disallow_legacy_py_provider
 --noincompatible_disallow_legacy_py_provider
+--incompatible_disallow_sdk_frameworks_attributes
+--noincompatible_disallow_sdk_frameworks_attributes
 --incompatible_disallow_struct_provider_syntax
 --noincompatible_disallow_struct_provider_syntax
 --incompatible_disallow_symlink_file_to_dir
@@ -9525,6 +9541,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noincompatible_disallow_legacy_javainfo
 --incompatible_disallow_legacy_py_provider
 --noincompatible_disallow_legacy_py_provider
+--incompatible_disallow_sdk_frameworks_attributes
+--noincompatible_disallow_sdk_frameworks_attributes
 --incompatible_disallow_struct_provider_syntax
 --noincompatible_disallow_struct_provider_syntax
 --incompatible_disallow_symlink_file_to_dir
@@ -10642,6 +10660,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noincompatible_disallow_legacy_javainfo
 --incompatible_disallow_legacy_py_provider
 --noincompatible_disallow_legacy_py_provider
+--incompatible_disallow_sdk_frameworks_attributes
+--noincompatible_disallow_sdk_frameworks_attributes
 --incompatible_disallow_struct_provider_syntax
 --noincompatible_disallow_struct_provider_syntax
 --incompatible_disallow_symlink_file_to_dir
@@ -11864,6 +11884,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noincompatible_disallow_legacy_javainfo
 --incompatible_disallow_legacy_py_provider
 --noincompatible_disallow_legacy_py_provider
+--incompatible_disallow_sdk_frameworks_attributes
+--noincompatible_disallow_sdk_frameworks_attributes
 --incompatible_disallow_struct_provider_syntax
 --noincompatible_disallow_struct_provider_syntax
 --incompatible_disallow_symlink_file_to_dir
@@ -13263,6 +13285,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noincompatible_disallow_legacy_javainfo
 --incompatible_disallow_legacy_py_provider
 --noincompatible_disallow_legacy_py_provider
+--incompatible_disallow_sdk_frameworks_attributes
+--noincompatible_disallow_sdk_frameworks_attributes
 --incompatible_disallow_struct_provider_syntax
 --noincompatible_disallow_struct_provider_syntax
 --incompatible_disallow_symlink_file_to_dir
