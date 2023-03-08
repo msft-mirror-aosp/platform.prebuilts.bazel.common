@@ -6,7 +6,7 @@
 #
 # Usage: update.sh <commit>
 
-set -euo pipefail
+set -euox pipefail
 
 function err() {
     >&2 echo "$@"
