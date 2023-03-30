@@ -127,7 +127,7 @@ def current_bazel_commit():
   return match_group.group(1)
 
 
-def ensure_commit_is_new(target_commit):
+def ensure_commit_is_new(target_commit, bazel_src_dir):
   """Verify that the target commit is newer than the current Bazel."""
 
   curr_commit = current_bazel_commit()
@@ -143,6 +143,19 @@ def ensure_commit_is_new(target_commit):
           "in the case that updating other tools failed), specify -f.")
     sys.exit(1)
 
+  result = subprocess.run(
+      ["git", "merge-base", "--is-ancestor", curr_commit, target_commit],
+      cwd=bazel_src_dir,
+      check=False)
+  if result.returncode != 0:
+    print(f"Requested commit {target_commit} is not a descendant of " +
+          f"current Bazel binary commit {curr_commit}. Are you trying to " +
+          "update to an older commit?\n" +
+          "To force an update anyway, specify -f.")
+    sys.exit(1)
+
+
+def checkout_bazel_at(commit):
   clone_dir = temp_dir_path("bazelsrc")
   print(f"Cloning Bazel into {clone_dir}...")
   result = subprocess.run(
@@ -155,15 +168,12 @@ def ensure_commit_is_new(target_commit):
 
   bazel_src_dir = clone_dir.joinpath("bazel")
   result = subprocess.run(
-      ["git", "merge-base", "--is-ancestor", curr_commit, target_commit],
+      ["git", "checkout", commit],
       cwd=bazel_src_dir,
       check=False)
   if result.returncode != 0:
-    print(f"Requested commit {target_commit} is not a descendant of " +
-          f"current Bazel binary commit {curr_commit}. Are you trying to " +
-          "update to an older commit?\n" +
-          "To force an update anyway, specify -f.")
-    sys.exit(1)
+    print("Sync @%s failed." % commit)
+  return bazel_src_dir
 
 
 def ensure_projects_clean():
@@ -182,7 +192,7 @@ def ensure_projects_clean():
     sys.exit(1)
 
 
-def run_update(commit):
+def run_update(commit, bazel_src_dir):
   """Run the update script to update prebuilts.
 
   Retrieves a prebuilt bazel at the given commit, and updates other checked
@@ -192,7 +202,7 @@ def run_update(commit):
   print_step_header("Updating prebuilts...")
   update_script_path = pathlib.Path(UPDATE_SCRIPT_PATH).resolve()
 
-  cmd_args = [f"./{update_script_path.name}", commit]
+  cmd_args = [f"./{update_script_path.name}", commit, str(bazel_src_dir.absolute())]
   target_cwd = update_script_path.parent.absolute()
   print(f"Runnning update script (CWD: {target_cwd}): {' '.join(cmd_args)}")
   if not dry_run:
@@ -308,10 +318,11 @@ def main():
 
   if not args.verify_only:
     commit = target_update_commit(args)
+    bazel_src_dir = checkout_bazel_at(commit)
     if not args.force:
-      ensure_commit_is_new(commit)
+      ensure_commit_is_new(commit, bazel_src_dir)
     ensure_projects_clean()
-    run_update(commit)
+    run_update(commit, bazel_src_dir)
 
   verify_update()
   create_commits()
