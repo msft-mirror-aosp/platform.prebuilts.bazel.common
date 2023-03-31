@@ -33,20 +33,17 @@ function check_sha256() {
 
 BAZEL_BUILD_FLAGS=(
   --incompatible_sandbox_hermetic_tmp
+  --verbose_failures
 )
 
 check_prereqs
-commit="$1"; shift
+new_bazel="$1"; shift
 common_bazel_dir="$1"; shift
 linux_bazel_dir="$1"; shift
-echo "checking out bazel..."
+bazel_src_dir="$1"; shift
 cd $(mktemp -d)
-git clone https://github.com/bazelbuild/bazel.git
-cd bazel
-git checkout ${commit}
-echo "gathering external repository data..."
-/usr/bin/bazel-real build "${BAZEL_BUILD_FLAGS[@]}" src:bazel_nojdk
-./bazel-bin/src/bazel_nojdk query "//external:remote_java_tools + //external:remote_java_tools_linux" --output=xml > repo_infos.xml
+touch WORKSPACE
+$new_bazel query "//external:remote_java_tools + //external:remote_java_tools_linux" --output=xml > repo_infos.xml
 remote_java_tools_url=$(xmllint --xpath "/query/rule[@name='//external:remote_java_tools']/list[@name='urls']/string[1]/@value" repo_infos.xml|sed -e "s/ value=\"//"|sed -e "s/\"//")
 remote_java_tools_sha256=$(xmllint --xpath "/query/rule[@name='//external:remote_java_tools']/string[@name='sha256']/@value" repo_infos.xml|sed -e "s/ value=\"//"|sed -e "s/\"//")
 remote_java_tools_linux_url=$(xmllint --xpath "/query/rule[@name='//external:remote_java_tools_linux']/list[@name='urls']/string[1]/@value" repo_infos.xml|sed -e "s/ value=\"//"|sed -e "s/\"//")
@@ -71,5 +68,6 @@ do
 done
 
 echo "building autocompletion script..."
-/usr/bin/bazel-real build //scripts:bazel-complete.bash
+cd $bazel_src_dir
+$new_bazel build "${BAZEL_BUILD_FLAGS[@]}" //scripts:bazel-complete.bash
 cp bazel-bin/scripts/bazel-complete.bash ${common_bazel_dir}/bazel-complete.bash
