@@ -52,3 +52,21 @@ java_binary(
     visibility = ["//visibility:public"],
     runtime_deps = [":proguard_import"],
 )
+
+# The java tools contain sources for the below targets, which are a
+# fallback when a prebuilt is not available on a given platform. We
+# don't currently need these, but the below aliases let
+# @bazel_tools//tools/jdk:ijar_prebuilt_binary_or_cc_binary and
+# @bazel_tools//tools/jdk:singlejar_prebuilt_or_cc_binary resolve
+# under any condition, which in turn enables bazel queries on targets
+# that depend on them (e.g. default java toolchains).
+
+alias(
+    name = "ijar_cc_binary",
+    actual = "@remote_java_tools_linux//:ijar_prebuilt_binary",
+)
+
+alias(
+    name = "singlejar_cc_bin",
+    actual = "@remote_java_tools_linux//:prebuilt_singlejar",
+)
