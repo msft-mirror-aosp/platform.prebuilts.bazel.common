@@ -6,7 +6,7 @@
 #
 # Usage: update.sh <commit>
 
-set -euo pipefail
+set -euox pipefail
 
 function err() {
     >&2 echo "$@"
@@ -28,6 +28,7 @@ function check_prereqs() {
 
 check_prereqs
 commit="$1"; shift
+bazel_src_dir="$1"; shift
 
 ci_url="https://storage.googleapis.com/bazel-builds/metadata/${commit}.json"
 platforms_json="$(curl -s "${ci_url}" | jq '{ platforms: .platforms }')"
@@ -77,14 +78,14 @@ common_bazel_dir=$(pwd)
 cd ../linux-x86_64
 linux_bazel_dir=$(pwd)
 download_and_verify "linux" "${linux_nojdk_url}" "${linux_nojdk_sha256}"
-downloaded_file="bazel_nojdk-${commit}-linux-x86_64"
+linux_downloaded_file=${downloaded_file}
 ./${downloaded_file} license > LICENSE
 cp LICENSE ../common/
 # Update macOS binary.
 cp LICENSE "../darwin-x86_64/"
 cd "../darwin-x86_64"
 download_and_verify "darwin" "${darwin_nojdk_url}" "${darwin_nojdk_sha256}"
-${common_bazel_dir}/update_tools.sh "$commit" "$common_bazel_dir" "$linux_bazel_dir"
+${common_bazel_dir}/update_tools.sh "$linux_bazel_dir/$linux_downloaded_file" "$common_bazel_dir" "$linux_bazel_dir" "$bazel_src_dir"
 
 
 echo "Done. This script may have affected all of prebuilts/bazel/common, prebuilts/bazel/linux-x86_64 and prebuilts/bazel/darwin-x86_64. Be sure to upload changes for all affected git repositories."
