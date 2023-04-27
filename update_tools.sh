@@ -4,6 +4,7 @@
 # Usage: update_java_tools.sh <commit> <absolute path to prebuilts/bazel/common> <absolute path to prebuilts/bazel/linux-x86_64>
 
 set -euo pipefail
+set -x
 
 function err() {
     >&2 echo "$@"
@@ -41,7 +42,7 @@ new_bazel="$1"; shift
 common_bazel_dir="$1"; shift
 linux_bazel_dir="$1"; shift
 bazel_src_dir="$1"; shift
-cd $(mktemp -d)
+cd $(mktemp -d -p $HOME/.cache/bazel-aosp)
 touch WORKSPACE
 $new_bazel query "//external:remote_java_tools + //external:remote_java_tools_linux + //external:android_tools" --output=xml > repo_infos.xml
 remote_java_tools_url=$(xmllint --xpath "/query/rule[@name='//external:remote_java_tools']/list[@name='urls']/string[1]/@value" repo_infos.xml|sed -e "s/ value=\"//"|sed -e "s/\"//")
