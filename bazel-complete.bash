@@ -745,6 +745,7 @@ defaults-package
 build-language
 default-package-path
 starlark-semantics
+worker_metrics
 "
 BAZEL_STARTUP_OPTIONS="
 --autodetect_server_javabase
@@ -1359,11 +1360,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noexperimental_record_metrics_for_all_mnemonics
 --experimental_remotable_source_manifests
 --noexperimental_remotable_source_manifests
---experimental_remote_build_event_upload={all,minimal}
 --experimental_remote_cache_async
 --noexperimental_remote_cache_async
---experimental_remote_cache_compression
---noexperimental_remote_cache_compression
 --experimental_remote_cache_eviction_retries=
 --experimental_remote_cache_ttl=
 --experimental_remote_capture_corrupted_outputs=path
@@ -1406,6 +1404,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --experimental_save_feature_state
 --noexperimental_save_feature_state
 --experimental_scale_timeouts=
+--experimental_shrink_worker_pool
+--noexperimental_shrink_worker_pool
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
 --experimental_skymeld_ui
@@ -1539,6 +1539,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noincompatible_avoid_conflict_dlls
 --incompatible_check_testonly_for_output_files
 --noincompatible_check_testonly_for_output_files
+--incompatible_check_visibility_for_toolchains
+--noincompatible_check_visibility_for_toolchains
 --incompatible_config_setting_private_default_visibility
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
@@ -1817,8 +1819,11 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --norelative_locations
 --remote_accept_cached
 --noremote_accept_cached
+--remote_build_event_upload={all,minimal}
 --remote_bytestream_uri_prefix=
 --remote_cache=
+--remote_cache_compression
+--noremote_cache_compression
 --remote_cache_header=
 --remote_default_exec_properties=
 --remote_default_platform_properties=
@@ -1840,6 +1845,7 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --remote_proxy=
 --remote_result_cache_priority=
 --remote_retries=
+--remote_retry_max_delay=
 --remote_timeout=
 --remote_upload_local_results
 --noremote_upload_local_results
@@ -2299,11 +2305,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noexperimental_record_metrics_for_all_mnemonics
 --experimental_remotable_source_manifests
 --noexperimental_remotable_source_manifests
---experimental_remote_build_event_upload={all,minimal}
 --experimental_remote_cache_async
 --noexperimental_remote_cache_async
---experimental_remote_cache_compression
---noexperimental_remote_cache_compression
 --experimental_remote_cache_eviction_retries=
 --experimental_remote_cache_ttl=
 --experimental_remote_capture_corrupted_outputs=path
@@ -2346,6 +2349,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --experimental_save_feature_state
 --noexperimental_save_feature_state
 --experimental_scale_timeouts=
+--experimental_shrink_worker_pool
+--noexperimental_shrink_worker_pool
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
 --experimental_skymeld_ui
@@ -2464,6 +2469,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noincompatible_avoid_conflict_dlls
 --incompatible_check_testonly_for_output_files
 --noincompatible_check_testonly_for_output_files
+--incompatible_check_visibility_for_toolchains
+--noincompatible_check_visibility_for_toolchains
 --incompatible_config_setting_private_default_visibility
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
@@ -2713,8 +2720,11 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --registry=
 --remote_accept_cached
 --noremote_accept_cached
+--remote_build_event_upload={all,minimal}
 --remote_bytestream_uri_prefix=
 --remote_cache=
+--remote_cache_compression
+--noremote_cache_compression
 --remote_cache_header=
 --remote_default_exec_properties=
 --remote_default_platform_properties=
@@ -2736,6 +2746,7 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --remote_proxy=
 --remote_result_cache_priority=
 --remote_retries=
+--remote_retry_max_delay=
 --remote_timeout=
 --remote_upload_local_results
 --noremote_upload_local_results
@@ -3191,11 +3202,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noexperimental_record_metrics_for_all_mnemonics
 --experimental_remotable_source_manifests
 --noexperimental_remotable_source_manifests
---experimental_remote_build_event_upload={all,minimal}
 --experimental_remote_cache_async
 --noexperimental_remote_cache_async
---experimental_remote_cache_compression
---noexperimental_remote_cache_compression
 --experimental_remote_cache_eviction_retries=
 --experimental_remote_cache_ttl=
 --experimental_remote_capture_corrupted_outputs=path
@@ -3238,6 +3246,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --experimental_save_feature_state
 --noexperimental_save_feature_state
 --experimental_scale_timeouts=
+--experimental_shrink_worker_pool
+--noexperimental_shrink_worker_pool
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
 --experimental_skymeld_ui
@@ -3357,6 +3367,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noincompatible_avoid_conflict_dlls
 --incompatible_check_testonly_for_output_files
 --noincompatible_check_testonly_for_output_files
+--incompatible_check_visibility_for_toolchains
+--noincompatible_check_visibility_for_toolchains
 --incompatible_config_setting_private_default_visibility
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
@@ -3607,8 +3619,11 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --registry=
 --remote_accept_cached
 --noremote_accept_cached
+--remote_build_event_upload={all,minimal}
 --remote_bytestream_uri_prefix=
 --remote_cache=
+--remote_cache_compression
+--noremote_cache_compression
 --remote_cache_header=
 --remote_default_exec_properties=
 --remote_default_platform_properties=
@@ -3630,6 +3645,7 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --remote_proxy=
 --remote_result_cache_priority=
 --remote_retries=
+--remote_retry_max_delay=
 --remote_timeout=
 --remote_upload_local_results
 --noremote_upload_local_results
@@ -4087,11 +4103,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noexperimental_record_metrics_for_all_mnemonics
 --experimental_remotable_source_manifests
 --noexperimental_remotable_source_manifests
---experimental_remote_build_event_upload={all,minimal}
 --experimental_remote_cache_async
 --noexperimental_remote_cache_async
---experimental_remote_cache_compression
---noexperimental_remote_cache_compression
 --experimental_remote_cache_eviction_retries=
 --experimental_remote_cache_ttl=
 --experimental_remote_capture_corrupted_outputs=path
@@ -4134,6 +4147,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --experimental_save_feature_state
 --noexperimental_save_feature_state
 --experimental_scale_timeouts=
+--experimental_shrink_worker_pool
+--noexperimental_shrink_worker_pool
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
 --experimental_skymeld_ui
@@ -4255,6 +4270,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noincompatible_avoid_conflict_dlls
 --incompatible_check_testonly_for_output_files
 --noincompatible_check_testonly_for_output_files
+--incompatible_check_visibility_for_toolchains
+--noincompatible_check_visibility_for_toolchains
 --incompatible_config_setting_private_default_visibility
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
@@ -4504,8 +4521,11 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --registry=
 --remote_accept_cached
 --noremote_accept_cached
+--remote_build_event_upload={all,minimal}
 --remote_bytestream_uri_prefix=
 --remote_cache=
+--remote_cache_compression
+--noremote_cache_compression
 --remote_cache_header=
 --remote_default_exec_properties=
 --remote_default_platform_properties=
@@ -4527,6 +4547,7 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --remote_proxy=
 --remote_result_cache_priority=
 --remote_retries=
+--remote_retry_max_delay=
 --remote_timeout=
 --remote_upload_local_results
 --noremote_upload_local_results
@@ -4985,11 +5006,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noexperimental_record_metrics_for_all_mnemonics
 --experimental_remotable_source_manifests
 --noexperimental_remotable_source_manifests
---experimental_remote_build_event_upload={all,minimal}
 --experimental_remote_cache_async
 --noexperimental_remote_cache_async
---experimental_remote_cache_compression
---noexperimental_remote_cache_compression
 --experimental_remote_cache_eviction_retries=
 --experimental_remote_cache_ttl=
 --experimental_remote_capture_corrupted_outputs=path
@@ -5032,6 +5050,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --experimental_save_feature_state
 --noexperimental_save_feature_state
 --experimental_scale_timeouts=
+--experimental_shrink_worker_pool
+--noexperimental_shrink_worker_pool
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
 --experimental_skymeld_ui
@@ -5150,6 +5170,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noincompatible_avoid_conflict_dlls
 --incompatible_check_testonly_for_output_files
 --noincompatible_check_testonly_for_output_files
+--incompatible_check_visibility_for_toolchains
+--noincompatible_check_visibility_for_toolchains
 --incompatible_config_setting_private_default_visibility
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
@@ -5400,8 +5422,11 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --registry=
 --remote_accept_cached
 --noremote_accept_cached
+--remote_build_event_upload={all,minimal}
 --remote_bytestream_uri_prefix=
 --remote_cache=
+--remote_cache_compression
+--noremote_cache_compression
 --remote_cache_header=
 --remote_default_exec_properties=
 --remote_default_platform_properties=
@@ -5423,6 +5448,7 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --remote_proxy=
 --remote_result_cache_priority=
 --remote_retries=
+--remote_retry_max_delay=
 --remote_timeout=
 --remote_upload_local_results
 --noremote_upload_local_results
@@ -5877,11 +5903,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noexperimental_record_metrics_for_all_mnemonics
 --experimental_remotable_source_manifests
 --noexperimental_remotable_source_manifests
---experimental_remote_build_event_upload={all,minimal}
 --experimental_remote_cache_async
 --noexperimental_remote_cache_async
---experimental_remote_cache_compression
---noexperimental_remote_cache_compression
 --experimental_remote_cache_eviction_retries=
 --experimental_remote_cache_ttl=
 --experimental_remote_capture_corrupted_outputs=path
@@ -5924,6 +5947,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --experimental_save_feature_state
 --noexperimental_save_feature_state
 --experimental_scale_timeouts=
+--experimental_shrink_worker_pool
+--noexperimental_shrink_worker_pool
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
 --experimental_skymeld_ui
@@ -6042,6 +6067,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noincompatible_avoid_conflict_dlls
 --incompatible_check_testonly_for_output_files
 --noincompatible_check_testonly_for_output_files
+--incompatible_check_visibility_for_toolchains
+--noincompatible_check_visibility_for_toolchains
 --incompatible_config_setting_private_default_visibility
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
@@ -6293,8 +6320,11 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --registry=
 --remote_accept_cached
 --noremote_accept_cached
+--remote_build_event_upload={all,minimal}
 --remote_bytestream_uri_prefix=
 --remote_cache=
+--remote_cache_compression
+--noremote_cache_compression
 --remote_cache_header=
 --remote_default_exec_properties=
 --remote_default_platform_properties=
@@ -6316,6 +6346,7 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --remote_proxy=
 --remote_result_cache_priority=
 --remote_retries=
+--remote_retry_max_delay=
 --remote_timeout=
 --remote_upload_local_results
 --noremote_upload_local_results
@@ -6775,11 +6806,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noexperimental_record_metrics_for_all_mnemonics
 --experimental_remotable_source_manifests
 --noexperimental_remotable_source_manifests
---experimental_remote_build_event_upload={all,minimal}
 --experimental_remote_cache_async
 --noexperimental_remote_cache_async
---experimental_remote_cache_compression
---noexperimental_remote_cache_compression
 --experimental_remote_cache_eviction_retries=
 --experimental_remote_cache_ttl=
 --experimental_remote_capture_corrupted_outputs=path
@@ -6822,6 +6850,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --experimental_save_feature_state
 --noexperimental_save_feature_state
 --experimental_scale_timeouts=
+--experimental_shrink_worker_pool
+--noexperimental_shrink_worker_pool
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
 --experimental_skymeld_ui
@@ -6947,6 +6977,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noincompatible_avoid_conflict_dlls
 --incompatible_check_testonly_for_output_files
 --noincompatible_check_testonly_for_output_files
+--incompatible_check_visibility_for_toolchains
+--noincompatible_check_visibility_for_toolchains
 --incompatible_config_setting_private_default_visibility
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
@@ -7229,8 +7261,11 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --norelative_locations
 --remote_accept_cached
 --noremote_accept_cached
+--remote_build_event_upload={all,minimal}
 --remote_bytestream_uri_prefix=
 --remote_cache=
+--remote_cache_compression
+--noremote_cache_compression
 --remote_cache_header=
 --remote_default_exec_properties=
 --remote_default_platform_properties=
@@ -7252,6 +7287,7 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --remote_proxy=
 --remote_result_cache_priority=
 --remote_retries=
+--remote_retry_max_delay=
 --remote_timeout=
 --remote_upload_local_results
 --noremote_upload_local_results
@@ -7770,11 +7806,8 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noexperimental_profile_include_target_label
 --experimental_record_metrics_for_all_mnemonics
 --noexperimental_record_metrics_for_all_mnemonics
---experimental_remote_build_event_upload={all,minimal}
 --experimental_remote_cache_async
 --noexperimental_remote_cache_async
---experimental_remote_cache_compression
---noexperimental_remote_cache_compression
 --experimental_remote_cache_ttl=
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
@@ -7924,8 +7957,11 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --registry=
 --remote_accept_cached
 --noremote_accept_cached
+--remote_build_event_upload={all,minimal}
 --remote_bytestream_uri_prefix=
 --remote_cache=
+--remote_cache_compression
+--noremote_cache_compression
 --remote_cache_header=
 --remote_default_exec_properties=
 --remote_default_platform_properties=
@@ -7947,6 +7983,7 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --remote_proxy=
 --remote_result_cache_priority=
 --remote_retries=
+--remote_retry_max_delay=
 --remote_timeout=
 --remote_upload_local_results
 --noremote_upload_local_results
@@ -8540,11 +8577,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noexperimental_record_metrics_for_all_mnemonics
 --experimental_remotable_source_manifests
 --noexperimental_remotable_source_manifests
---experimental_remote_build_event_upload={all,minimal}
 --experimental_remote_cache_async
 --noexperimental_remote_cache_async
---experimental_remote_cache_compression
---noexperimental_remote_cache_compression
 --experimental_remote_cache_eviction_retries=
 --experimental_remote_cache_ttl=
 --experimental_remote_capture_corrupted_outputs=path
@@ -8587,6 +8621,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --experimental_save_feature_state
 --noexperimental_save_feature_state
 --experimental_scale_timeouts=
+--experimental_shrink_worker_pool
+--noexperimental_shrink_worker_pool
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
 --experimental_skymeld_ui
@@ -8705,6 +8741,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noincompatible_avoid_conflict_dlls
 --incompatible_check_testonly_for_output_files
 --noincompatible_check_testonly_for_output_files
+--incompatible_check_visibility_for_toolchains
+--noincompatible_check_visibility_for_toolchains
 --incompatible_config_setting_private_default_visibility
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
@@ -8954,8 +8992,11 @@ BAZEL_COMMAND_INFO_FLAGS="
 --registry=
 --remote_accept_cached
 --noremote_accept_cached
+--remote_build_event_upload={all,minimal}
 --remote_bytestream_uri_prefix=
 --remote_cache=
+--remote_cache_compression
+--noremote_cache_compression
 --remote_cache_header=
 --remote_default_exec_properties=
 --remote_default_platform_properties=
@@ -8977,6 +9018,7 @@ BAZEL_COMMAND_INFO_FLAGS="
 --remote_proxy=
 --remote_result_cache_priority=
 --remote_retries=
+--remote_retry_max_delay=
 --remote_timeout=
 --remote_upload_local_results
 --noremote_upload_local_results
@@ -9680,11 +9722,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noexperimental_record_metrics_for_all_mnemonics
 --experimental_remotable_source_manifests
 --noexperimental_remotable_source_manifests
---experimental_remote_build_event_upload={all,minimal}
 --experimental_remote_cache_async
 --noexperimental_remote_cache_async
---experimental_remote_cache_compression
---noexperimental_remote_cache_compression
 --experimental_remote_cache_eviction_retries=
 --experimental_remote_cache_ttl=
 --experimental_remote_capture_corrupted_outputs=path
@@ -9727,6 +9766,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --experimental_save_feature_state
 --noexperimental_save_feature_state
 --experimental_scale_timeouts=
+--experimental_shrink_worker_pool
+--noexperimental_shrink_worker_pool
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
 --experimental_skymeld_ui
@@ -9845,6 +9886,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noincompatible_avoid_conflict_dlls
 --incompatible_check_testonly_for_output_files
 --noincompatible_check_testonly_for_output_files
+--incompatible_check_visibility_for_toolchains
+--noincompatible_check_visibility_for_toolchains
 --incompatible_config_setting_private_default_visibility
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
@@ -10098,8 +10141,11 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --registry=
 --remote_accept_cached
 --noremote_accept_cached
+--remote_build_event_upload={all,minimal}
 --remote_bytestream_uri_prefix=
 --remote_cache=
+--remote_cache_compression
+--noremote_cache_compression
 --remote_cache_header=
 --remote_default_exec_properties=
 --remote_default_platform_properties=
@@ -10121,6 +10167,7 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --remote_proxy=
 --remote_result_cache_priority=
 --remote_retries=
+--remote_retry_max_delay=
 --remote_timeout=
 --remote_upload_local_results
 --noremote_upload_local_results
@@ -10843,11 +10890,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noexperimental_record_metrics_for_all_mnemonics
 --experimental_remotable_source_manifests
 --noexperimental_remotable_source_manifests
---experimental_remote_build_event_upload={all,minimal}
 --experimental_remote_cache_async
 --noexperimental_remote_cache_async
---experimental_remote_cache_compression
---noexperimental_remote_cache_compression
 --experimental_remote_cache_eviction_retries=
 --experimental_remote_cache_ttl=
 --experimental_remote_capture_corrupted_outputs=path
@@ -10890,6 +10934,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --experimental_save_feature_state
 --noexperimental_save_feature_state
 --experimental_scale_timeouts=
+--experimental_shrink_worker_pool
+--noexperimental_shrink_worker_pool
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
 --experimental_skymeld_ui
@@ -11008,6 +11054,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noincompatible_avoid_conflict_dlls
 --incompatible_check_testonly_for_output_files
 --noincompatible_check_testonly_for_output_files
+--incompatible_check_visibility_for_toolchains
+--noincompatible_check_visibility_for_toolchains
 --incompatible_config_setting_private_default_visibility
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
@@ -11258,8 +11306,11 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --registry=
 --remote_accept_cached
 --noremote_accept_cached
+--remote_build_event_upload={all,minimal}
 --remote_bytestream_uri_prefix=
 --remote_cache=
+--remote_cache_compression
+--noremote_cache_compression
 --remote_cache_header=
 --remote_default_exec_properties=
 --remote_default_platform_properties=
@@ -11281,6 +11332,7 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --remote_proxy=
 --remote_result_cache_priority=
 --remote_retries=
+--remote_retry_max_delay=
 --remote_timeout=
 --remote_upload_local_results
 --noremote_upload_local_results
@@ -11537,11 +11589,8 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noexperimental_profile_include_target_label
 --experimental_record_metrics_for_all_mnemonics
 --noexperimental_record_metrics_for_all_mnemonics
---experimental_remote_build_event_upload={all,minimal}
 --experimental_remote_cache_async
 --noexperimental_remote_cache_async
---experimental_remote_cache_compression
---noexperimental_remote_cache_compression
 --experimental_remote_cache_ttl=
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
@@ -11734,8 +11783,11 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --norelative_locations
 --remote_accept_cached
 --noremote_accept_cached
+--remote_build_event_upload={all,minimal}
 --remote_bytestream_uri_prefix=
 --remote_cache=
+--remote_cache_compression
+--noremote_cache_compression
 --remote_cache_header=
 --remote_default_exec_properties=
 --remote_default_platform_properties=
@@ -11757,6 +11809,7 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --remote_proxy=
 --remote_result_cache_priority=
 --remote_retries=
+--remote_retry_max_delay=
 --remote_timeout=
 --remote_upload_local_results
 --noremote_upload_local_results
@@ -12112,11 +12165,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noexperimental_record_metrics_for_all_mnemonics
 --experimental_remotable_source_manifests
 --noexperimental_remotable_source_manifests
---experimental_remote_build_event_upload={all,minimal}
 --experimental_remote_cache_async
 --noexperimental_remote_cache_async
---experimental_remote_cache_compression
---noexperimental_remote_cache_compression
 --experimental_remote_cache_eviction_retries=
 --experimental_remote_cache_ttl=
 --experimental_remote_capture_corrupted_outputs=path
@@ -12159,6 +12209,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --experimental_save_feature_state
 --noexperimental_save_feature_state
 --experimental_scale_timeouts=
+--experimental_shrink_worker_pool
+--noexperimental_shrink_worker_pool
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
 --experimental_skymeld_ui
@@ -12277,6 +12329,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noincompatible_avoid_conflict_dlls
 --incompatible_check_testonly_for_output_files
 --noincompatible_check_testonly_for_output_files
+--incompatible_check_visibility_for_toolchains
+--noincompatible_check_visibility_for_toolchains
 --incompatible_config_setting_private_default_visibility
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
@@ -12526,8 +12580,11 @@ BAZEL_COMMAND_RUN_FLAGS="
 --registry=
 --remote_accept_cached
 --noremote_accept_cached
+--remote_build_event_upload={all,minimal}
 --remote_bytestream_uri_prefix=
 --remote_cache=
+--remote_cache_compression
+--noremote_cache_compression
 --remote_cache_header=
 --remote_default_exec_properties=
 --remote_default_platform_properties=
@@ -12549,6 +12606,7 @@ BAZEL_COMMAND_RUN_FLAGS="
 --remote_proxy=
 --remote_result_cache_priority=
 --remote_retries=
+--remote_retry_max_delay=
 --remote_timeout=
 --remote_upload_local_results
 --noremote_upload_local_results
@@ -13048,11 +13106,8 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noexperimental_profile_include_target_label
 --experimental_record_metrics_for_all_mnemonics
 --noexperimental_record_metrics_for_all_mnemonics
---experimental_remote_build_event_upload={all,minimal}
 --experimental_remote_cache_async
 --noexperimental_remote_cache_async
---experimental_remote_cache_compression
---noexperimental_remote_cache_compression
 --experimental_remote_cache_ttl=
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
@@ -13203,8 +13258,11 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --registry=
 --remote_accept_cached
 --noremote_accept_cached
+--remote_build_event_upload={all,minimal}
 --remote_bytestream_uri_prefix=
 --remote_cache=
+--remote_cache_compression
+--noremote_cache_compression
 --remote_cache_header=
 --remote_default_exec_properties=
 --remote_default_platform_properties=
@@ -13226,6 +13284,7 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --remote_proxy=
 --remote_result_cache_priority=
 --remote_retries=
+--remote_retry_max_delay=
 --remote_timeout=
 --remote_upload_local_results
 --noremote_upload_local_results
@@ -13572,11 +13631,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noexperimental_record_metrics_for_all_mnemonics
 --experimental_remotable_source_manifests
 --noexperimental_remotable_source_manifests
---experimental_remote_build_event_upload={all,minimal}
 --experimental_remote_cache_async
 --noexperimental_remote_cache_async
---experimental_remote_cache_compression
---noexperimental_remote_cache_compression
 --experimental_remote_cache_eviction_retries=
 --experimental_remote_cache_ttl=
 --experimental_remote_capture_corrupted_outputs=path
@@ -13619,6 +13675,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --experimental_save_feature_state
 --noexperimental_save_feature_state
 --experimental_scale_timeouts=
+--experimental_shrink_worker_pool
+--noexperimental_shrink_worker_pool
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
 --experimental_skymeld_ui
@@ -13737,6 +13795,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noincompatible_avoid_conflict_dlls
 --incompatible_check_testonly_for_output_files
 --noincompatible_check_testonly_for_output_files
+--incompatible_check_visibility_for_toolchains
+--noincompatible_check_visibility_for_toolchains
 --incompatible_config_setting_private_default_visibility
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
@@ -13988,8 +14048,11 @@ BAZEL_COMMAND_TEST_FLAGS="
 --registry=
 --remote_accept_cached
 --noremote_accept_cached
+--remote_build_event_upload={all,minimal}
 --remote_bytestream_uri_prefix=
 --remote_cache=
+--remote_cache_compression
+--noremote_cache_compression
 --remote_cache_header=
 --remote_default_exec_properties=
 --remote_default_platform_properties=
@@ -14011,6 +14074,7 @@ BAZEL_COMMAND_TEST_FLAGS="
 --remote_proxy=
 --remote_result_cache_priority=
 --remote_retries=
+--remote_retry_max_delay=
 --remote_timeout=
 --remote_upload_local_results
 --noremote_upload_local_results
