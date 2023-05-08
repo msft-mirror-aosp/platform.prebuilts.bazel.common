@@ -66,8 +66,11 @@ def print_step_header(description):
 
 def temp_file_path(filename):
   global log_dir
+  parent_dir=os.path.expanduser("~/.cache/bazel-aosp")
+  if not os.path.exists(parent_dir):
+    os.makedirs(parent_dir)
   if log_dir is None:
-    log_dir = tempfile.mkdtemp()
+    log_dir = tempfile.mkdtemp(dir=parent_dir)
   result = pathlib.Path(log_dir).joinpath(filename)
   result.touch()
   return result
@@ -75,8 +78,11 @@ def temp_file_path(filename):
 
 def temp_dir_path(dirname):
   global log_dir
+  parent_dir=os.path.expanduser("~/.cache/bazel-aosp")
+  if not os.path.exists(parent_dir):
+    os.makedirs(parent_dir)
   if log_dir is None:
-    log_dir = tempfile.mkdtemp()
+    log_dir = tempfile.mkdtemp(dir=parent_dir)
   result = pathlib.Path(log_dir).joinpath(dirname)
   result.mkdir(exist_ok=True)
   return result
