@@ -884,8 +884,6 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
 --experimental_oom_more_eagerly_threshold=
@@ -931,6 +929,10 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --grpc_keepalive_timeout=
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -1285,8 +1287,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_import_deps_checking={off,warning,error}
 --experimental_include_xcode_execution_requirements
 --noexperimental_include_xcode_execution_requirements
@@ -1375,7 +1375,7 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --experimental_run_validations
 --noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
---experimental_sandbox_memory_limit=
+--experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
 --noexperimental_sandboxfs_map_symlink_targets
 --experimental_sandboxfs_path=
@@ -1462,6 +1462,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --grte_top=label
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
 --high_priority_workers=
 --host_action_env=
 --host_compilation_mode={fastbuild,dbg,opt}
@@ -1481,6 +1483,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --host_per_file_copt=
 --host_platform=label
 --host_swiftcopt=
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -1604,6 +1608,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
+--incompatible_remote_use_new_exit_code_for_lost_inputs
+--noincompatible_remote_use_new_exit_code_for_lost_inputs
 --incompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
@@ -2195,8 +2201,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_import_deps_checking={off,warning,error}
 --experimental_include_xcode_execution_requirements
 --noexperimental_include_xcode_execution_requirements
@@ -2285,7 +2289,7 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --experimental_run_validations
 --noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
---experimental_sandbox_memory_limit=
+--experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
 --noexperimental_sandboxfs_map_symlink_targets
 --experimental_sandboxfs_path=
@@ -2369,6 +2373,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --grte_top=label
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
 --high_priority_workers=
 --host_action_env=
 --host_compilation_mode={fastbuild,dbg,opt}
@@ -2388,6 +2394,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --host_per_file_copt=
 --host_platform=label
 --host_swiftcopt=
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -2495,6 +2503,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
+--incompatible_remote_use_new_exit_code_for_lost_inputs
+--noincompatible_remote_use_new_exit_code_for_lost_inputs
 --incompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
@@ -3057,8 +3067,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_import_deps_checking={off,warning,error}
 --experimental_include_xcode_execution_requirements
 --noexperimental_include_xcode_execution_requirements
@@ -3147,7 +3155,7 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --experimental_run_validations
 --noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
---experimental_sandbox_memory_limit=
+--experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
 --noexperimental_sandboxfs_map_symlink_targets
 --experimental_sandboxfs_path=
@@ -3232,6 +3240,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --grte_top=label
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
 --high_priority_workers=
 --host_action_env=
 --host_compilation_mode={fastbuild,dbg,opt}
@@ -3251,6 +3261,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --host_per_file_copt=
 --host_platform=label
 --host_swiftcopt=
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -3358,6 +3370,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
+--incompatible_remote_use_new_exit_code_for_lost_inputs
+--noincompatible_remote_use_new_exit_code_for_lost_inputs
 --incompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
@@ -3923,8 +3937,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_import_deps_checking={off,warning,error}
 --experimental_include_xcode_execution_requirements
 --noexperimental_include_xcode_execution_requirements
@@ -4013,7 +4025,7 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --experimental_run_validations
 --noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
---experimental_sandbox_memory_limit=
+--experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
 --noexperimental_sandboxfs_map_symlink_targets
 --experimental_sandboxfs_path=
@@ -4100,6 +4112,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --grte_top=label
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
 --high_priority_workers=
 --host_action_env=
 --host_compilation_mode={fastbuild,dbg,opt}
@@ -4119,6 +4133,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --host_per_file_copt=
 --host_platform=label
 --host_swiftcopt=
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -4226,6 +4242,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
+--incompatible_remote_use_new_exit_code_for_lost_inputs
+--noincompatible_remote_use_new_exit_code_for_lost_inputs
 --incompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
@@ -4791,8 +4809,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_import_deps_checking={off,warning,error}
 --experimental_include_xcode_execution_requirements
 --noexperimental_include_xcode_execution_requirements
@@ -4881,7 +4897,7 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --experimental_run_validations
 --noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
---experimental_sandbox_memory_limit=
+--experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
 --noexperimental_sandboxfs_map_symlink_targets
 --experimental_sandboxfs_path=
@@ -4965,6 +4981,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --grte_top=label
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
 --high_priority_workers=
 --host_action_env=
 --host_compilation_mode={fastbuild,dbg,opt}
@@ -4984,6 +5002,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --host_per_file_copt=
 --host_platform=label
 --host_swiftcopt=
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -5091,6 +5111,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
+--incompatible_remote_use_new_exit_code_for_lost_inputs
+--noincompatible_remote_use_new_exit_code_for_lost_inputs
 --incompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
@@ -5653,8 +5675,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_import_deps_checking={off,warning,error}
 --experimental_include_xcode_execution_requirements
 --noexperimental_include_xcode_execution_requirements
@@ -5743,7 +5763,7 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --experimental_run_validations
 --noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
---experimental_sandbox_memory_limit=
+--experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
 --noexperimental_sandboxfs_map_symlink_targets
 --experimental_sandboxfs_path=
@@ -5827,6 +5847,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --grte_top=label
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
 --high_priority_workers=
 --host_action_env=
 --host_compilation_mode={fastbuild,dbg,opt}
@@ -5846,6 +5868,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --host_per_file_copt=
 --host_platform=label
 --host_swiftcopt=
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -5953,6 +5977,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
+--incompatible_remote_use_new_exit_code_for_lost_inputs
+--noincompatible_remote_use_new_exit_code_for_lost_inputs
 --incompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
@@ -6521,8 +6547,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_import_deps_checking={off,warning,error}
 --experimental_include_xcode_execution_requirements
 --noexperimental_include_xcode_execution_requirements
@@ -6611,7 +6635,7 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --experimental_run_validations
 --noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
---experimental_sandbox_memory_limit=
+--experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
 --noexperimental_sandboxfs_map_symlink_targets
 --experimental_sandboxfs_path=
@@ -6698,6 +6722,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --grte_top=label
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
 --high_priority_workers=
 --host_action_env=
 --host_compilation_mode={fastbuild,dbg,opt}
@@ -6717,6 +6743,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --host_per_file_copt=
 --host_platform=label
 --host_swiftcopt=
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -6832,6 +6860,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
+--incompatible_remote_use_new_exit_code_for_lost_inputs
+--noincompatible_remote_use_new_exit_code_for_lost_inputs
 --incompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
@@ -7266,8 +7296,6 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
 --experimental_oom_more_eagerly_threshold=
@@ -7313,6 +7341,10 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --grpc_keepalive_timeout=
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -7510,8 +7542,6 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
 --experimental_oom_more_eagerly_threshold=
@@ -7577,6 +7607,10 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --grpc_keepalive_timeout=
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -7630,6 +7664,8 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
+--incompatible_remote_use_new_exit_code_for_lost_inputs
+--noincompatible_remote_use_new_exit_code_for_lost_inputs
 --incompatible_remove_rule_name_parameter
 --noincompatible_remove_rule_name_parameter
 --incompatible_require_linker_input_cc_api
@@ -7812,8 +7848,6 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
 --experimental_oom_more_eagerly_threshold=
@@ -7860,6 +7894,10 @@ BAZEL_COMMAND_HELP_FLAGS="
 --heap_dump_on_oom
 --noheap_dump_on_oom
 --help_verbosity={long,medium,short}
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -8213,8 +8251,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_import_deps_checking={off,warning,error}
 --experimental_include_xcode_execution_requirements
 --noexperimental_include_xcode_execution_requirements
@@ -8303,7 +8339,7 @@ BAZEL_COMMAND_INFO_FLAGS="
 --experimental_run_validations
 --noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
---experimental_sandbox_memory_limit=
+--experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
 --noexperimental_sandboxfs_map_symlink_targets
 --experimental_sandboxfs_path=
@@ -8387,6 +8423,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --grte_top=label
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
 --high_priority_workers=
 --host_action_env=
 --host_compilation_mode={fastbuild,dbg,opt}
@@ -8406,6 +8444,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --host_per_file_copt=
 --host_platform=label
 --host_swiftcopt=
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -8513,6 +8553,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
+--incompatible_remote_use_new_exit_code_for_lost_inputs
+--noincompatible_remote_use_new_exit_code_for_lost_inputs
 --incompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
@@ -8907,8 +8949,6 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
 --experimental_oom_more_eagerly_threshold=
@@ -8954,6 +8994,10 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --grpc_keepalive_timeout=
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -9309,8 +9353,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_import_deps_checking={off,warning,error}
 --experimental_include_xcode_execution_requirements
 --noexperimental_include_xcode_execution_requirements
@@ -9399,7 +9441,7 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --experimental_run_validations
 --noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
---experimental_sandbox_memory_limit=
+--experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
 --noexperimental_sandboxfs_map_symlink_targets
 --experimental_sandboxfs_path=
@@ -9483,6 +9525,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --grte_top=label
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
 --high_priority_workers=
 --host_action_env=
 --host_compilation_mode={fastbuild,dbg,opt}
@@ -9502,6 +9546,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --host_per_file_copt=
 --host_platform=label
 --host_swiftcopt=
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -9609,6 +9655,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
+--incompatible_remote_use_new_exit_code_for_lost_inputs
+--noincompatible_remote_use_new_exit_code_for_lost_inputs
 --incompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
@@ -10014,8 +10062,6 @@ BAZEL_COMMAND_MODQUERY_FLAGS="
 --noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
 --experimental_oom_more_eagerly_threshold=
@@ -10064,6 +10110,10 @@ BAZEL_COMMAND_MODQUERY_FLAGS="
 --grpc_keepalive_timeout=
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -10428,8 +10478,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_import_deps_checking={off,warning,error}
 --experimental_include_xcode_execution_requirements
 --noexperimental_include_xcode_execution_requirements
@@ -10518,7 +10566,7 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --experimental_run_validations
 --noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
---experimental_sandbox_memory_limit=
+--experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
 --noexperimental_sandboxfs_map_symlink_targets
 --experimental_sandboxfs_path=
@@ -10602,6 +10650,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --grte_top=label
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
 --high_priority_workers=
 --host_action_env=
 --host_compilation_mode={fastbuild,dbg,opt}
@@ -10621,6 +10671,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --host_per_file_copt=
 --host_platform=label
 --host_swiftcopt=
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -10728,6 +10780,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
+--incompatible_remote_use_new_exit_code_for_lost_inputs
+--noincompatible_remote_use_new_exit_code_for_lost_inputs
 --incompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
@@ -11130,8 +11184,6 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noexperimental_graphless_query
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
 --experimental_oom_more_eagerly_threshold=
@@ -11201,6 +11253,10 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --grpc_keepalive_timeout=
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -11264,6 +11320,8 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
+--incompatible_remote_use_new_exit_code_for_lost_inputs
+--noincompatible_remote_use_new_exit_code_for_lost_inputs
 --incompatible_remove_rule_name_parameter
 --noincompatible_remove_rule_name_parameter
 --incompatible_require_linker_input_cc_api
@@ -11652,8 +11710,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_import_deps_checking={off,warning,error}
 --experimental_include_xcode_execution_requirements
 --noexperimental_include_xcode_execution_requirements
@@ -11742,7 +11798,7 @@ BAZEL_COMMAND_RUN_FLAGS="
 --experimental_run_validations
 --noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
---experimental_sandbox_memory_limit=
+--experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
 --noexperimental_sandboxfs_map_symlink_targets
 --experimental_sandboxfs_path=
@@ -11826,6 +11882,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --grte_top=label
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
 --high_priority_workers=
 --host_action_env=
 --host_compilation_mode={fastbuild,dbg,opt}
@@ -11845,6 +11903,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --host_per_file_copt=
 --host_platform=label
 --host_swiftcopt=
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -11952,6 +12012,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
+--incompatible_remote_use_new_exit_code_for_lost_inputs
+--noincompatible_remote_use_new_exit_code_for_lost_inputs
 --incompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
@@ -12345,8 +12407,6 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
 --experimental_oom_more_eagerly_threshold=
@@ -12392,6 +12452,10 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --grpc_keepalive_timeout=
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --iff_heap_size_greater_than=
 --ignore_dev_dependency
@@ -12582,8 +12646,6 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
 --experimental_oom_more_eagerly_threshold=
@@ -12649,6 +12711,10 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --grpc_keepalive_timeout=
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -12702,6 +12768,8 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
+--incompatible_remote_use_new_exit_code_for_lost_inputs
+--noincompatible_remote_use_new_exit_code_for_lost_inputs
 --incompatible_remove_rule_name_parameter
 --noincompatible_remove_rule_name_parameter
 --incompatible_require_linker_input_cc_api
@@ -13053,8 +13121,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_import_deps_checking={off,warning,error}
 --experimental_include_xcode_execution_requirements
 --noexperimental_include_xcode_execution_requirements
@@ -13143,7 +13209,7 @@ BAZEL_COMMAND_TEST_FLAGS="
 --experimental_run_validations
 --noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
---experimental_sandbox_memory_limit=
+--experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
 --noexperimental_sandboxfs_map_symlink_targets
 --experimental_sandboxfs_path=
@@ -13227,6 +13293,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --grte_top=label
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
 --high_priority_workers=
 --host_action_env=
 --host_compilation_mode={fastbuild,dbg,opt}
@@ -13246,6 +13314,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --host_per_file_copt=
 --host_platform=label
 --host_swiftcopt=
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
@@ -13353,6 +13423,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
+--incompatible_remote_use_new_exit_code_for_lost_inputs
+--noincompatible_remote_use_new_exit_code_for_lost_inputs
 --incompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
@@ -13751,8 +13823,6 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
---experimental_heuristically_drop_nodes
---noexperimental_heuristically_drop_nodes
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
 --experimental_oom_more_eagerly_threshold=
@@ -13800,6 +13870,10 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --grpc_keepalive_timeout=
 --heap_dump_on_oom
 --noheap_dump_on_oom
+--heuristically_drop_nodes
+--noheuristically_drop_nodes
+--http_connector_attempts=
+--http_connector_retry_max_timeout=
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
