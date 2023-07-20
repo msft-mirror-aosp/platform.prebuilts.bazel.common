@@ -11,15 +11,15 @@ First, decide which version of Bazel you need.
 Whichever of these you use, you will need to use official **nojdk x86-64**
 versions of Bazel, for Linux and macOS (Darwin).
 
-Run the `update.sh` script in the Linux prebuilts repository to download the
+Run the `release_bazel.py` script in the root repository to download
 and verify the binaries from the trusted Bazel CI pipeline:
 
-`./update.sh <commit>`
+`python /prebuilts/bazel/common/release_bazel.py --commit  <commit>`
 
 To get the commit hash for builds, see the [Bazel releases], [Bazel nightlies]
 or [Bazel per-commit builds] sections below.
 
-`update.sh` will also:
+this will run `update.sh` which  will also:
   - Download the remote_java_tools prebuilts corresponding
     to the downloaded Bazel binary
   - verify that the downloaded binary has the correct SHA-256
