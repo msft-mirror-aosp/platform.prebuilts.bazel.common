@@ -716,7 +716,7 @@ _bazel__complete_target_stdout() {
 # default completion for bazel
 complete -F _bazel__complete -o nospace "${BAZEL}"
 complete -F _bazel__complete -o nospace "${IBAZEL}"
-BAZEL_COMMAND_LIST="analyze-profile aquery build canonicalize-flags clean config coverage cquery dump fetch help info license mobile-install modquery print_action query run shutdown sync test version"
+BAZEL_COMMAND_LIST="analyze-profile aquery build canonicalize-flags clean config coverage cquery dump fetch help info license mobile-install mod print_action query run shutdown sync test version"
 BAZEL_INFO_KEYS="
 workspace
 install_base
@@ -898,6 +898,8 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_java_library_export
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
@@ -920,6 +922,7 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -932,6 +935,8 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -975,6 +980,8 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noincompatible_allow_tags_propagation
 --incompatible_always_check_depset_elements
 --noincompatible_always_check_depset_elements
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_starlark_host_transitions
@@ -1223,8 +1230,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --nocheck_up_to_date
 --check_visibility
 --nocheck_visibility
---collapse_duplicate_defines
---nocollapse_duplicate_defines
 --collect_code_coverage
 --nocollect_code_coverage
 --color={yes,no,auto}
@@ -1289,8 +1294,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --experimental_action_resource_set
 --noexperimental_action_resource_set
 --experimental_add_exec_constraints_to_targets=
---experimental_allow_android_library_deps_without_srcs
---noexperimental_allow_android_library_deps_without_srcs
 --experimental_allow_top_level_aspects_parameters
 --noexperimental_allow_top_level_aspects_parameters
 --experimental_analysis_test_call
@@ -1395,6 +1398,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noexperimental_inmemory_jdeps_files
 --experimental_inprocess_symlink_creation
 --noexperimental_inprocess_symlink_creation
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_j2objc_header_map
 --noexperimental_j2objc_header_map
 --experimental_j2objc_shorter_header_path
@@ -1446,6 +1451,7 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -1458,6 +1464,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -1472,8 +1480,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
---experimental_run_validations
---noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -1629,6 +1635,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
 --noincompatible_default_to_explicit_init_py
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_expand_if_all_available_in_flag_set
@@ -1699,8 +1707,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
---incompatible_objc_linking_info_migration
---noincompatible_objc_linking_info_migration
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_package_group_includes_double_slash
@@ -1830,6 +1836,7 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --max_test_output_bytes=
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
+--memprof_profile=label
 --minimum_os_version=
 --modify_execution_info=
 --nested_set_depth_limit=
@@ -2189,8 +2196,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --nocheck_up_to_date
 --check_visibility
 --nocheck_visibility
---collapse_duplicate_defines
---nocollapse_duplicate_defines
 --collect_code_coverage
 --nocollect_code_coverage
 --color={yes,no,auto}
@@ -2255,8 +2260,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --experimental_action_resource_set
 --noexperimental_action_resource_set
 --experimental_add_exec_constraints_to_targets=
---experimental_allow_android_library_deps_without_srcs
---noexperimental_allow_android_library_deps_without_srcs
 --experimental_allow_top_level_aspects_parameters
 --noexperimental_allow_top_level_aspects_parameters
 --experimental_analysis_test_call
@@ -2361,6 +2364,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noexperimental_inmemory_jdeps_files
 --experimental_inprocess_symlink_creation
 --noexperimental_inprocess_symlink_creation
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_j2objc_header_map
 --noexperimental_j2objc_header_map
 --experimental_j2objc_shorter_header_path
@@ -2412,6 +2417,7 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -2424,6 +2430,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -2438,8 +2446,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
---experimental_run_validations
---noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -2580,6 +2586,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
 --noincompatible_default_to_explicit_init_py
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_expand_if_all_available_in_flag_set
@@ -2648,8 +2656,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
---incompatible_objc_linking_info_migration
---noincompatible_objc_linking_info_migration
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -2773,6 +2779,7 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --max_test_output_bytes=
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
+--memprof_profile=label
 --minimum_os_version=
 --modify_execution_info=
 --nested_set_depth_limit=
@@ -3105,8 +3112,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --nocheck_up_to_date
 --check_visibility
 --nocheck_visibility
---collapse_duplicate_defines
---nocollapse_duplicate_defines
 --collect_code_coverage
 --nocollect_code_coverage
 --color={yes,no,auto}
@@ -3171,8 +3176,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --experimental_action_resource_set
 --noexperimental_action_resource_set
 --experimental_add_exec_constraints_to_targets=
---experimental_allow_android_library_deps_without_srcs
---noexperimental_allow_android_library_deps_without_srcs
 --experimental_allow_top_level_aspects_parameters
 --noexperimental_allow_top_level_aspects_parameters
 --experimental_analysis_test_call
@@ -3277,6 +3280,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noexperimental_inmemory_jdeps_files
 --experimental_inprocess_symlink_creation
 --noexperimental_inprocess_symlink_creation
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_j2objc_header_map
 --noexperimental_j2objc_header_map
 --experimental_j2objc_shorter_header_path
@@ -3328,6 +3333,7 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -3340,6 +3346,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -3354,8 +3362,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
---experimental_run_validations
---noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -3497,6 +3503,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
 --noincompatible_default_to_explicit_init_py
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_expand_if_all_available_in_flag_set
@@ -3565,8 +3573,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
---incompatible_objc_linking_info_migration
---noincompatible_objc_linking_info_migration
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -3691,6 +3697,7 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --max_test_output_bytes=
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
+--memprof_profile=label
 --minimum_os_version=
 --modify_execution_info=
 --nested_set_depth_limit=
@@ -4025,8 +4032,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --nocheck_up_to_date
 --check_visibility
 --nocheck_visibility
---collapse_duplicate_defines
---nocollapse_duplicate_defines
 --collect_code_coverage
 --nocollect_code_coverage
 --color={yes,no,auto}
@@ -4091,8 +4096,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --experimental_action_resource_set
 --noexperimental_action_resource_set
 --experimental_add_exec_constraints_to_targets=
---experimental_allow_android_library_deps_without_srcs
---noexperimental_allow_android_library_deps_without_srcs
 --experimental_allow_top_level_aspects_parameters
 --noexperimental_allow_top_level_aspects_parameters
 --experimental_analysis_test_call
@@ -4197,6 +4200,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noexperimental_inmemory_jdeps_files
 --experimental_inprocess_symlink_creation
 --noexperimental_inprocess_symlink_creation
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_j2objc_header_map
 --noexperimental_j2objc_header_map
 --experimental_j2objc_shorter_header_path
@@ -4248,6 +4253,7 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -4260,6 +4266,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -4274,8 +4282,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
---experimental_run_validations
---noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -4419,6 +4425,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
 --noincompatible_default_to_explicit_init_py
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_expand_if_all_available_in_flag_set
@@ -4487,8 +4495,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
---incompatible_objc_linking_info_migration
---noincompatible_objc_linking_info_migration
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -4612,6 +4618,7 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --max_test_output_bytes=
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
+--memprof_profile=label
 --minimum_os_version=
 --modify_execution_info=
 --nested_set_depth_limit=
@@ -4945,8 +4952,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --nocheck_up_to_date
 --check_visibility
 --nocheck_visibility
---collapse_duplicate_defines
---nocollapse_duplicate_defines
 --collect_code_coverage
 --nocollect_code_coverage
 --color={yes,no,auto}
@@ -5013,8 +5018,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --experimental_action_resource_set
 --noexperimental_action_resource_set
 --experimental_add_exec_constraints_to_targets=
---experimental_allow_android_library_deps_without_srcs
---noexperimental_allow_android_library_deps_without_srcs
 --experimental_allow_top_level_aspects_parameters
 --noexperimental_allow_top_level_aspects_parameters
 --experimental_analysis_test_call
@@ -5119,6 +5122,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noexperimental_inmemory_jdeps_files
 --experimental_inprocess_symlink_creation
 --noexperimental_inprocess_symlink_creation
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_j2objc_header_map
 --noexperimental_j2objc_header_map
 --experimental_j2objc_shorter_header_path
@@ -5170,6 +5175,7 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -5182,6 +5188,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -5196,8 +5204,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
---experimental_run_validations
---noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -5338,6 +5344,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
 --noincompatible_default_to_explicit_init_py
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_expand_if_all_available_in_flag_set
@@ -5406,8 +5414,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
---incompatible_objc_linking_info_migration
---noincompatible_objc_linking_info_migration
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -5531,6 +5537,7 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --max_test_output_bytes=
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
+--memprof_profile=label
 --minimum_os_version=
 --modify_execution_info=
 --nested_set_depth_limit=
@@ -5863,8 +5870,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --nocheck_up_to_date
 --check_visibility
 --nocheck_visibility
---collapse_duplicate_defines
---nocollapse_duplicate_defines
 --collect_code_coverage
 --nocollect_code_coverage
 --color={yes,no,auto}
@@ -5929,8 +5934,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --experimental_action_resource_set
 --noexperimental_action_resource_set
 --experimental_add_exec_constraints_to_targets=
---experimental_allow_android_library_deps_without_srcs
---noexperimental_allow_android_library_deps_without_srcs
 --experimental_allow_top_level_aspects_parameters
 --noexperimental_allow_top_level_aspects_parameters
 --experimental_analysis_test_call
@@ -6035,6 +6038,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noexperimental_inmemory_jdeps_files
 --experimental_inprocess_symlink_creation
 --noexperimental_inprocess_symlink_creation
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_j2objc_header_map
 --noexperimental_j2objc_header_map
 --experimental_j2objc_shorter_header_path
@@ -6086,6 +6091,7 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -6098,6 +6104,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -6112,8 +6120,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
---experimental_run_validations
---noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -6254,6 +6260,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
 --noincompatible_default_to_explicit_init_py
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_expand_if_all_available_in_flag_set
@@ -6322,8 +6330,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
---incompatible_objc_linking_info_migration
---noincompatible_objc_linking_info_migration
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -6447,6 +6453,7 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --max_test_output_bytes=
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
+--memprof_profile=label
 --minimum_os_version=
 --modify_execution_info=
 --nested_set_depth_limit=
@@ -6785,8 +6792,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --nocheck_up_to_date
 --check_visibility
 --nocheck_visibility
---collapse_duplicate_defines
---nocollapse_duplicate_defines
 --collect_code_coverage
 --nocollect_code_coverage
 --color={yes,no,auto}
@@ -6851,8 +6856,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --experimental_action_resource_set
 --noexperimental_action_resource_set
 --experimental_add_exec_constraints_to_targets=
---experimental_allow_android_library_deps_without_srcs
---noexperimental_allow_android_library_deps_without_srcs
 --experimental_allow_top_level_aspects_parameters
 --noexperimental_allow_top_level_aspects_parameters
 --experimental_analysis_test_call
@@ -6957,6 +6960,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noexperimental_inmemory_jdeps_files
 --experimental_inprocess_symlink_creation
 --noexperimental_inprocess_symlink_creation
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_j2objc_header_map
 --noexperimental_j2objc_header_map
 --experimental_j2objc_shorter_header_path
@@ -7008,6 +7013,7 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -7020,6 +7026,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -7034,8 +7042,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
---experimental_run_validations
---noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -7183,6 +7189,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
 --noincompatible_default_to_explicit_init_py
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_expand_if_all_available_in_flag_set
@@ -7253,8 +7261,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
---incompatible_objc_linking_info_migration
---noincompatible_objc_linking_info_migration
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_package_group_includes_double_slash
@@ -7384,6 +7390,7 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --max_test_output_bytes=
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
+--memprof_profile=label
 --minimum_os_version=
 --modify_execution_info=
 --nested_set_depth_limit=
@@ -7752,6 +7759,8 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_java_library_export
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
@@ -7774,6 +7783,7 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -7786,6 +7796,8 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -7829,6 +7841,8 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noincompatible_allow_tags_propagation
 --incompatible_always_check_depset_elements
 --noincompatible_always_check_depset_elements
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_starlark_host_transitions
@@ -8084,6 +8098,8 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_java_library_export
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
@@ -8106,6 +8122,7 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -8118,6 +8135,8 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -8164,6 +8183,8 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noincompatible_always_check_depset_elements
 --incompatible_config_setting_private_default_visibility
 --noincompatible_config_setting_private_default_visibility
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_starlark_host_transitions
@@ -8417,6 +8438,8 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_java_library_export
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
@@ -8439,6 +8462,7 @@ BAZEL_COMMAND_HELP_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -8451,6 +8475,8 @@ BAZEL_COMMAND_HELP_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -8495,6 +8521,8 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noincompatible_allow_tags_propagation
 --incompatible_always_check_depset_elements
 --noincompatible_always_check_depset_elements
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_starlark_host_transitions
@@ -8744,8 +8772,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --nocheck_up_to_date
 --check_visibility
 --nocheck_visibility
---collapse_duplicate_defines
---nocollapse_duplicate_defines
 --collect_code_coverage
 --nocollect_code_coverage
 --color={yes,no,auto}
@@ -8810,8 +8836,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --experimental_action_resource_set
 --noexperimental_action_resource_set
 --experimental_add_exec_constraints_to_targets=
---experimental_allow_android_library_deps_without_srcs
---noexperimental_allow_android_library_deps_without_srcs
 --experimental_allow_top_level_aspects_parameters
 --noexperimental_allow_top_level_aspects_parameters
 --experimental_analysis_test_call
@@ -8916,6 +8940,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noexperimental_inmemory_jdeps_files
 --experimental_inprocess_symlink_creation
 --noexperimental_inprocess_symlink_creation
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_j2objc_header_map
 --noexperimental_j2objc_header_map
 --experimental_j2objc_shorter_header_path
@@ -8967,6 +8993,7 @@ BAZEL_COMMAND_INFO_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -8979,6 +9006,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -8993,8 +9022,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
---experimental_run_validations
---noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -9135,6 +9162,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
 --noincompatible_default_to_explicit_init_py
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_expand_if_all_available_in_flag_set
@@ -9203,8 +9232,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
---incompatible_objc_linking_info_migration
---noincompatible_objc_linking_info_migration
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -9328,6 +9355,7 @@ BAZEL_COMMAND_INFO_FLAGS="
 --max_test_output_bytes=
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
+--memprof_profile=label
 --minimum_os_version=
 --modify_execution_info=
 --nested_set_depth_limit=
@@ -9658,6 +9686,8 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_java_library_export
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
@@ -9680,6 +9710,7 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -9692,6 +9723,8 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -9735,6 +9768,8 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noincompatible_allow_tags_propagation
 --incompatible_always_check_depset_elements
 --noincompatible_always_check_depset_elements
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_starlark_host_transitions
@@ -9984,8 +10019,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --nocheck_up_to_date
 --check_visibility
 --nocheck_visibility
---collapse_duplicate_defines
---nocollapse_duplicate_defines
 --collect_code_coverage
 --nocollect_code_coverage
 --color={yes,no,auto}
@@ -10052,8 +10085,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --experimental_action_resource_set
 --noexperimental_action_resource_set
 --experimental_add_exec_constraints_to_targets=
---experimental_allow_android_library_deps_without_srcs
---noexperimental_allow_android_library_deps_without_srcs
 --experimental_allow_top_level_aspects_parameters
 --noexperimental_allow_top_level_aspects_parameters
 --experimental_analysis_test_call
@@ -10158,6 +10189,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noexperimental_inmemory_jdeps_files
 --experimental_inprocess_symlink_creation
 --noexperimental_inprocess_symlink_creation
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_j2objc_header_map
 --noexperimental_j2objc_header_map
 --experimental_j2objc_shorter_header_path
@@ -10209,6 +10242,7 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -10221,6 +10255,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -10235,8 +10271,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
---experimental_run_validations
---noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -10377,6 +10411,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
 --noincompatible_default_to_explicit_init_py
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_expand_if_all_available_in_flag_set
@@ -10445,8 +10481,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
---incompatible_objc_linking_info_migration
---noincompatible_objc_linking_info_migration
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -10573,6 +10607,7 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --max_test_output_bytes=
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
+--memprof_profile=label
 --minimum_os_version=
 --mode={classic,classic_internal_test_do_not_use,skylark}
 --modify_execution_info=
@@ -10806,12 +10841,13 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --zip_undeclared_test_outputs
 --nozip_undeclared_test_outputs
 "
-BAZEL_COMMAND_MODQUERY_FLAGS="
+BAZEL_COMMAND_MOD_FLAGS="
 --allow_yanked_versions=
 --announce_rc
 --noannounce_rc
 --attempt_to_print_relative_paths
 --noattempt_to_print_relative_paths
+--base_module=
 --bep_maximum_open_remote_upload_files=
 --bes_backend=
 --bes_check_preceding_lifecycle_events
@@ -10911,6 +10947,8 @@ BAZEL_COMMAND_MODQUERY_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_java_library_export
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
@@ -10933,6 +10971,7 @@ BAZEL_COMMAND_MODQUERY_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -10945,6 +10984,8 @@ BAZEL_COMMAND_MODQUERY_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -10965,8 +11006,9 @@ BAZEL_COMMAND_MODQUERY_FLAGS="
 --noexperimental_windows_watchfs
 --experimental_worker_for_repo_fetching={off,platform,virtual}
 --experimental_workspace_rules_log_file=path
---extra
---noextra
+--extension_filter=
+--extension_info={hidden,usages,repos,all}
+--extension_usages=
 --from=
 --gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
 --nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
@@ -10987,6 +11029,8 @@ BAZEL_COMMAND_MODQUERY_FLAGS="
 --http_timeout_scaling=
 --ignore_dev_dependency
 --noignore_dev_dependency
+--include_builtin
+--noinclude_builtin
 --include_unused
 --noinclude_unused
 --incompatible_allow_tags_propagation
@@ -10995,6 +11039,8 @@ BAZEL_COMMAND_MODQUERY_FLAGS="
 --noincompatible_always_check_depset_elements
 --incompatible_config_setting_private_default_visibility
 --noincompatible_config_setting_private_default_visibility
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_starlark_host_transitions
@@ -11145,6 +11191,8 @@ BAZEL_COMMAND_MODQUERY_FLAGS="
 --notrack_incremental_state
 --ui_actions_shown=
 --ui_event_filters=
+--verbose
+--noverbose
 --watchfs
 --nowatchfs
 "
@@ -11251,8 +11299,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --nocheck_up_to_date
 --check_visibility
 --nocheck_visibility
---collapse_duplicate_defines
---nocollapse_duplicate_defines
 --collect_code_coverage
 --nocollect_code_coverage
 --color={yes,no,auto}
@@ -11317,8 +11363,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --experimental_action_resource_set
 --noexperimental_action_resource_set
 --experimental_add_exec_constraints_to_targets=
---experimental_allow_android_library_deps_without_srcs
---noexperimental_allow_android_library_deps_without_srcs
 --experimental_allow_top_level_aspects_parameters
 --noexperimental_allow_top_level_aspects_parameters
 --experimental_analysis_test_call
@@ -11423,6 +11467,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noexperimental_inmemory_jdeps_files
 --experimental_inprocess_symlink_creation
 --noexperimental_inprocess_symlink_creation
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_j2objc_header_map
 --noexperimental_j2objc_header_map
 --experimental_j2objc_shorter_header_path
@@ -11474,6 +11520,7 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -11486,6 +11533,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -11500,8 +11549,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
---experimental_run_validations
---noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -11642,6 +11689,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
 --noincompatible_default_to_explicit_init_py
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_expand_if_all_available_in_flag_set
@@ -11710,8 +11759,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
---incompatible_objc_linking_info_migration
---noincompatible_objc_linking_info_migration
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -11835,6 +11882,7 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --max_test_output_bytes=
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
+--memprof_profile=label
 --minimum_os_version=
 --modify_execution_info=
 --nested_set_depth_limit=
@@ -12169,6 +12217,8 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noexperimental_graphless_query
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_java_library_export
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
@@ -12191,6 +12241,7 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -12203,6 +12254,8 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -12257,6 +12310,8 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noincompatible_always_check_depset_elements
 --incompatible_config_setting_private_default_visibility
 --noincompatible_config_setting_private_default_visibility
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_starlark_host_transitions
@@ -12558,8 +12613,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --nocheck_up_to_date
 --check_visibility
 --nocheck_visibility
---collapse_duplicate_defines
---nocollapse_duplicate_defines
 --collect_code_coverage
 --nocollect_code_coverage
 --color={yes,no,auto}
@@ -12624,8 +12677,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --experimental_action_resource_set
 --noexperimental_action_resource_set
 --experimental_add_exec_constraints_to_targets=
---experimental_allow_android_library_deps_without_srcs
---noexperimental_allow_android_library_deps_without_srcs
 --experimental_allow_top_level_aspects_parameters
 --noexperimental_allow_top_level_aspects_parameters
 --experimental_analysis_test_call
@@ -12730,6 +12781,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noexperimental_inmemory_jdeps_files
 --experimental_inprocess_symlink_creation
 --noexperimental_inprocess_symlink_creation
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_j2objc_header_map
 --noexperimental_j2objc_header_map
 --experimental_j2objc_shorter_header_path
@@ -12781,6 +12834,7 @@ BAZEL_COMMAND_RUN_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -12793,6 +12847,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -12807,8 +12863,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
---experimental_run_validations
---noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -12949,6 +13003,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
 --noincompatible_default_to_explicit_init_py
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_expand_if_all_available_in_flag_set
@@ -13017,8 +13073,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
---incompatible_objc_linking_info_migration
---noincompatible_objc_linking_info_migration
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -13142,6 +13196,7 @@ BAZEL_COMMAND_RUN_FLAGS="
 --max_test_output_bytes=
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
+--memprof_profile=label
 --minimum_os_version=
 --modify_execution_info=
 --nested_set_depth_limit=
@@ -13471,6 +13526,8 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_java_library_export
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
@@ -13493,6 +13550,7 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -13505,6 +13563,8 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -13549,6 +13609,8 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noincompatible_allow_tags_propagation
 --incompatible_always_check_depset_elements
 --noincompatible_always_check_depset_elements
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_starlark_host_transitions
@@ -13796,6 +13858,8 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_java_library_export
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
@@ -13818,6 +13882,7 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -13830,6 +13895,8 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -13876,6 +13943,8 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noincompatible_always_check_depset_elements
 --incompatible_config_setting_private_default_visibility
 --noincompatible_config_setting_private_default_visibility
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_starlark_host_transitions
@@ -14132,8 +14201,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --nocheck_up_to_date
 --check_visibility
 --nocheck_visibility
---collapse_duplicate_defines
---nocollapse_duplicate_defines
 --collect_code_coverage
 --nocollect_code_coverage
 --color={yes,no,auto}
@@ -14198,8 +14265,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --experimental_action_resource_set
 --noexperimental_action_resource_set
 --experimental_add_exec_constraints_to_targets=
---experimental_allow_android_library_deps_without_srcs
---noexperimental_allow_android_library_deps_without_srcs
 --experimental_allow_top_level_aspects_parameters
 --noexperimental_allow_top_level_aspects_parameters
 --experimental_analysis_test_call
@@ -14304,6 +14369,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noexperimental_inmemory_jdeps_files
 --experimental_inprocess_symlink_creation
 --noexperimental_inprocess_symlink_creation
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_j2objc_header_map
 --noexperimental_j2objc_header_map
 --experimental_j2objc_shorter_header_path
@@ -14355,6 +14422,7 @@ BAZEL_COMMAND_TEST_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -14367,6 +14435,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -14381,8 +14451,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
---experimental_run_validations
---noexperimental_run_validations
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -14523,6 +14591,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noincompatible_config_setting_private_default_visibility
 --incompatible_default_to_explicit_init_py
 --noincompatible_default_to_explicit_init_py
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_expand_if_all_available_in_flag_set
@@ -14591,8 +14661,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
---incompatible_objc_linking_info_migration
---noincompatible_objc_linking_info_migration
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -14716,6 +14784,7 @@ BAZEL_COMMAND_TEST_FLAGS="
 --max_test_output_bytes=
 --memory_profile=path
 --memory_profile_stable_heap_parameters=
+--memprof_profile=label
 --minimum_os_version=
 --modify_execution_info=
 --nested_set_depth_limit=
@@ -15050,6 +15119,8 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
+--experimental_isolated_extension_usages
+--noexperimental_isolated_extension_usages
 --experimental_java_library_export
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
@@ -15072,6 +15143,7 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
+--experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -15084,6 +15156,8 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --experimental_remote_merkle_tree_cache
 --noexperimental_remote_merkle_tree_cache
 --experimental_remote_merkle_tree_cache_size=
+--experimental_remote_require_cached
+--noexperimental_remote_require_cached
 --experimental_repo_remote_exec
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
@@ -15129,6 +15203,8 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noincompatible_allow_tags_propagation
 --incompatible_always_check_depset_elements
 --noincompatible_always_check_depset_elements
+--incompatible_depset_for_java_output_source_jars
+--noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
 --incompatible_disable_starlark_host_transitions
