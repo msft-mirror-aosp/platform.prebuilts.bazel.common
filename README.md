@@ -45,8 +45,6 @@ at least include:
 *   **Verifying that Bazel starts, on Linux and on macOS**, e.g.
     *   `source build/envsetup.sh`
     *   `bazel info`
-*   **Verifying basic user journeys succeed.**
-    *   `./build/bazel/scripts/run_presubmits.sh` (or let TreeHugger run these presubmits for you)
 
 Ensure that the CLs are set to the same Gerrit topic so they are submitted together.
 
