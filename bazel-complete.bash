@@ -858,6 +858,8 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -891,7 +893,6 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_gc_thrashing_limits=
 --experimental_get_fixed_configured_action_env
 --noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
@@ -904,7 +905,6 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
---experimental_oom_more_eagerly_threshold=
 --experimental_platforms_api
 --noexperimental_platforms_api
 --experimental_profile_additional_tasks=
@@ -957,8 +957,8 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noexperimental_windows_watchfs
 --experimental_worker_for_repo_fetching={off,platform,virtual}
 --experimental_workspace_rules_log_file=path
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --google_auth_scopes=
@@ -1129,6 +1129,8 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 BAZEL_COMMAND_AQUERY_ARGUMENT="label"
 BAZEL_COMMAND_AQUERY_FLAGS="
 --action_env=
+--allow_analysis_cache_discard
+--noallow_analysis_cache_discard
 --allow_analysis_failures
 --noallow_analysis_failures
 --allow_yanked_versions=
@@ -1310,6 +1312,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -1380,7 +1384,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noexperimental_fetch_all_coverage_outputs
 --experimental_filter_library_jar_with_program_jar
 --noexperimental_filter_library_jar_with_program_jar
---experimental_gc_thrashing_limits=
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
 --experimental_get_fixed_configured_action_env
@@ -1418,7 +1421,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noexperimental_objc_include_scanning
 --experimental_omitfp
 --noexperimental_omitfp
---experimental_oom_more_eagerly_threshold=
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
 --experimental_platform_in_output_dir
@@ -1557,8 +1559,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --flaky_test_attempts=
 --force_pic
 --noforce_pic
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --genrule_strategy=
@@ -2068,6 +2070,7 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noverbose_explanations
 --verbose_failures
 --noverbose_failures
+--visionos_cpus=
 --watchfs
 --nowatchfs
 --watchos_cpus=
@@ -2096,6 +2099,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 BAZEL_COMMAND_BUILD_ARGUMENT="label"
 BAZEL_COMMAND_BUILD_FLAGS="
 --action_env=
+--allow_analysis_cache_discard
+--noallow_analysis_cache_discard
 --allow_analysis_failures
 --noallow_analysis_failures
 --allow_yanked_versions=
@@ -2276,6 +2281,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -2346,7 +2353,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noexperimental_fetch_all_coverage_outputs
 --experimental_filter_library_jar_with_program_jar
 --noexperimental_filter_library_jar_with_program_jar
---experimental_gc_thrashing_limits=
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
 --experimental_get_fixed_configured_action_env
@@ -2384,7 +2390,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noexperimental_objc_include_scanning
 --experimental_omitfp
 --noexperimental_omitfp
---experimental_oom_more_eagerly_threshold=
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
 --experimental_platform_in_output_dir
@@ -2523,8 +2528,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --flaky_test_attempts=
 --force_pic
 --noforce_pic
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --genrule_strategy=
@@ -2983,6 +2988,7 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noverbose_explanations
 --verbose_failures
 --noverbose_failures
+--visionos_cpus=
 --watchfs
 --nowatchfs
 --watchos_cpus=
@@ -3010,6 +3016,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 "
 BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --action_env=
+--allow_analysis_cache_discard
+--noallow_analysis_cache_discard
 --allow_analysis_failures
 --noallow_analysis_failures
 --allow_yanked_versions=
@@ -3192,6 +3200,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -3262,7 +3272,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noexperimental_fetch_all_coverage_outputs
 --experimental_filter_library_jar_with_program_jar
 --noexperimental_filter_library_jar_with_program_jar
---experimental_gc_thrashing_limits=
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
 --experimental_get_fixed_configured_action_env
@@ -3300,7 +3309,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noexperimental_objc_include_scanning
 --experimental_omitfp
 --noexperimental_omitfp
---experimental_oom_more_eagerly_threshold=
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
 --experimental_platform_in_output_dir
@@ -3440,8 +3448,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --for_command=
 --force_pic
 --noforce_pic
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --genrule_strategy=
@@ -3903,6 +3911,7 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noverbose_explanations
 --verbose_failures
 --noverbose_failures
+--visionos_cpus=
 --watchfs
 --nowatchfs
 --watchos_cpus=
@@ -3930,6 +3939,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 "
 BAZEL_COMMAND_CLEAN_FLAGS="
 --action_env=
+--allow_analysis_cache_discard
+--noallow_analysis_cache_discard
 --allow_analysis_failures
 --noallow_analysis_failures
 --allow_yanked_versions=
@@ -4112,6 +4123,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -4182,7 +4195,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noexperimental_fetch_all_coverage_outputs
 --experimental_filter_library_jar_with_program_jar
 --noexperimental_filter_library_jar_with_program_jar
---experimental_gc_thrashing_limits=
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
 --experimental_get_fixed_configured_action_env
@@ -4220,7 +4232,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noexperimental_objc_include_scanning
 --experimental_omitfp
 --noexperimental_omitfp
---experimental_oom_more_eagerly_threshold=
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
 --experimental_platform_in_output_dir
@@ -4362,8 +4373,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --flaky_test_attempts=
 --force_pic
 --noforce_pic
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --genrule_strategy=
@@ -4824,6 +4835,7 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noverbose_explanations
 --verbose_failures
 --noverbose_failures
+--visionos_cpus=
 --watchfs
 --nowatchfs
 --watchos_cpus=
@@ -4852,6 +4864,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 BAZEL_COMMAND_CONFIG_ARGUMENT="string"
 BAZEL_COMMAND_CONFIG_FLAGS="
 --action_env=
+--allow_analysis_cache_discard
+--noallow_analysis_cache_discard
 --allow_analysis_failures
 --noallow_analysis_failures
 --allow_yanked_versions=
@@ -5034,6 +5048,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -5104,7 +5120,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noexperimental_fetch_all_coverage_outputs
 --experimental_filter_library_jar_with_program_jar
 --noexperimental_filter_library_jar_with_program_jar
---experimental_gc_thrashing_limits=
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
 --experimental_get_fixed_configured_action_env
@@ -5142,7 +5157,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noexperimental_objc_include_scanning
 --experimental_omitfp
 --noexperimental_omitfp
---experimental_oom_more_eagerly_threshold=
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
 --experimental_platform_in_output_dir
@@ -5281,8 +5295,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --flaky_test_attempts=
 --force_pic
 --noforce_pic
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --genrule_strategy=
@@ -5742,6 +5756,7 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noverbose_explanations
 --verbose_failures
 --noverbose_failures
+--visionos_cpus=
 --watchfs
 --nowatchfs
 --watchos_cpus=
@@ -5770,6 +5785,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 BAZEL_COMMAND_COVERAGE_ARGUMENT="label-test"
 BAZEL_COMMAND_COVERAGE_FLAGS="
 --action_env=
+--allow_analysis_cache_discard
+--noallow_analysis_cache_discard
 --allow_analysis_failures
 --noallow_analysis_failures
 --allow_yanked_versions=
@@ -5950,6 +5967,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -6020,7 +6039,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noexperimental_fetch_all_coverage_outputs
 --experimental_filter_library_jar_with_program_jar
 --noexperimental_filter_library_jar_with_program_jar
---experimental_gc_thrashing_limits=
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
 --experimental_get_fixed_configured_action_env
@@ -6058,7 +6076,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noexperimental_objc_include_scanning
 --experimental_omitfp
 --noexperimental_omitfp
---experimental_oom_more_eagerly_threshold=
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
 --experimental_platform_in_output_dir
@@ -6197,8 +6214,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --flaky_test_attempts=
 --force_pic
 --noforce_pic
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --genrule_strategy=
@@ -6663,6 +6680,7 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noverbose_failures
 --verbose_test_summary
 --noverbose_test_summary
+--visionos_cpus=
 --watchfs
 --nowatchfs
 --watchos_cpus=
@@ -6691,6 +6709,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 BAZEL_COMMAND_CQUERY_ARGUMENT="label"
 BAZEL_COMMAND_CQUERY_FLAGS="
 --action_env=
+--allow_analysis_cache_discard
+--noallow_analysis_cache_discard
 --allow_analysis_failures
 --noallow_analysis_failures
 --allow_yanked_versions=
@@ -6872,6 +6892,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -6942,7 +6964,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noexperimental_fetch_all_coverage_outputs
 --experimental_filter_library_jar_with_program_jar
 --noexperimental_filter_library_jar_with_program_jar
---experimental_gc_thrashing_limits=
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
 --experimental_get_fixed_configured_action_env
@@ -6980,7 +7001,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noexperimental_objc_include_scanning
 --experimental_omitfp
 --noexperimental_omitfp
---experimental_oom_more_eagerly_threshold=
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
 --experimental_platform_in_output_dir
@@ -7119,8 +7139,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --flaky_test_attempts=
 --force_pic
 --noforce_pic
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --genrule_strategy=
@@ -7632,6 +7652,7 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noverbose_failures
 --verbose_test_summary
 --noverbose_test_summary
+--visionos_cpus=
 --watchfs
 --nowatchfs
 --watchos_cpus=
@@ -7719,6 +7740,8 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -7752,7 +7775,6 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_gc_thrashing_limits=
 --experimental_get_fixed_configured_action_env
 --noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
@@ -7765,7 +7787,6 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
---experimental_oom_more_eagerly_threshold=
 --experimental_platforms_api
 --noexperimental_platforms_api
 --experimental_profile_additional_tasks=
@@ -7818,8 +7839,8 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noexperimental_windows_watchfs
 --experimental_worker_for_repo_fetching={off,platform,virtual}
 --experimental_workspace_rules_log_file=path
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --google_auth_scopes=
@@ -8058,6 +8079,8 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -8091,7 +8114,6 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_gc_thrashing_limits=
 --experimental_get_fixed_configured_action_env
 --noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
@@ -8104,7 +8126,6 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
---experimental_oom_more_eagerly_threshold=
 --experimental_platforms_api
 --noexperimental_platforms_api
 --experimental_profile_additional_tasks=
@@ -8158,8 +8179,8 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noexperimental_windows_watchfs
 --experimental_worker_for_repo_fetching={off,platform,virtual}
 --experimental_workspace_rules_log_file=path
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --google_auth_scopes=
@@ -8398,6 +8419,8 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -8431,7 +8454,6 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_gc_thrashing_limits=
 --experimental_get_fixed_configured_action_env
 --noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
@@ -8444,7 +8466,6 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
---experimental_oom_more_eagerly_threshold=
 --experimental_platforms_api
 --noexperimental_platforms_api
 --experimental_profile_additional_tasks=
@@ -8497,8 +8518,8 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noexperimental_windows_watchfs
 --experimental_worker_for_repo_fetching={off,platform,virtual}
 --experimental_workspace_rules_log_file=path
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --google_auth_scopes=
@@ -8672,6 +8693,8 @@ BAZEL_COMMAND_HELP_FLAGS="
 BAZEL_COMMAND_INFO_ARGUMENT="info-key"
 BAZEL_COMMAND_INFO_FLAGS="
 --action_env=
+--allow_analysis_cache_discard
+--noallow_analysis_cache_discard
 --allow_analysis_failures
 --noallow_analysis_failures
 --allow_yanked_versions=
@@ -8852,6 +8875,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -8922,7 +8947,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noexperimental_fetch_all_coverage_outputs
 --experimental_filter_library_jar_with_program_jar
 --noexperimental_filter_library_jar_with_program_jar
---experimental_gc_thrashing_limits=
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
 --experimental_get_fixed_configured_action_env
@@ -8960,7 +8984,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noexperimental_objc_include_scanning
 --experimental_omitfp
 --noexperimental_omitfp
---experimental_oom_more_eagerly_threshold=
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
 --experimental_platform_in_output_dir
@@ -9099,8 +9122,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --flaky_test_attempts=
 --force_pic
 --noforce_pic
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --genrule_strategy=
@@ -9561,6 +9584,7 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noverbose_explanations
 --verbose_failures
 --noverbose_failures
+--visionos_cpus=
 --watchfs
 --nowatchfs
 --watchos_cpus=
@@ -9646,6 +9670,8 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -9679,7 +9705,6 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_gc_thrashing_limits=
 --experimental_get_fixed_configured_action_env
 --noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
@@ -9692,7 +9717,6 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
---experimental_oom_more_eagerly_threshold=
 --experimental_platforms_api
 --noexperimental_platforms_api
 --experimental_profile_additional_tasks=
@@ -9745,8 +9769,8 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noexperimental_windows_watchfs
 --experimental_worker_for_repo_fetching={off,platform,virtual}
 --experimental_workspace_rules_log_file=path
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --google_auth_scopes=
@@ -9919,6 +9943,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --action_env=
 --adb=
 --adb_arg=
+--allow_analysis_cache_discard
+--noallow_analysis_cache_discard
 --allow_analysis_failures
 --noallow_analysis_failures
 --allow_yanked_versions=
@@ -10101,6 +10127,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -10171,7 +10199,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noexperimental_fetch_all_coverage_outputs
 --experimental_filter_library_jar_with_program_jar
 --noexperimental_filter_library_jar_with_program_jar
---experimental_gc_thrashing_limits=
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
 --experimental_get_fixed_configured_action_env
@@ -10209,7 +10236,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noexperimental_objc_include_scanning
 --experimental_omitfp
 --noexperimental_omitfp
---experimental_oom_more_eagerly_threshold=
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
 --experimental_platform_in_output_dir
@@ -10348,8 +10374,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --flaky_test_attempts=
 --force_pic
 --noforce_pic
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --genrule_strategy=
@@ -10816,6 +10842,7 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noverbose_explanations
 --verbose_failures
 --noverbose_failures
+--visionos_cpus=
 --watchfs
 --nowatchfs
 --watchos_cpus=
@@ -10907,6 +10934,8 @@ BAZEL_COMMAND_MOD_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -10940,7 +10969,6 @@ BAZEL_COMMAND_MOD_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_gc_thrashing_limits=
 --experimental_get_fixed_configured_action_env
 --noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
@@ -10953,7 +10981,6 @@ BAZEL_COMMAND_MOD_FLAGS="
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
---experimental_oom_more_eagerly_threshold=
 --experimental_platforms_api
 --noexperimental_platforms_api
 --experimental_profile_additional_tasks=
@@ -11010,8 +11037,8 @@ BAZEL_COMMAND_MOD_FLAGS="
 --extension_info={hidden,usages,repos,all}
 --extension_usages=
 --from=
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --google_auth_scopes=
@@ -11199,6 +11226,8 @@ BAZEL_COMMAND_MOD_FLAGS="
 BAZEL_COMMAND_PRINT_ACTION_ARGUMENT="label"
 BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --action_env=
+--allow_analysis_cache_discard
+--noallow_analysis_cache_discard
 --allow_analysis_failures
 --noallow_analysis_failures
 --allow_yanked_versions=
@@ -11379,6 +11408,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -11449,7 +11480,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noexperimental_fetch_all_coverage_outputs
 --experimental_filter_library_jar_with_program_jar
 --noexperimental_filter_library_jar_with_program_jar
---experimental_gc_thrashing_limits=
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
 --experimental_get_fixed_configured_action_env
@@ -11487,7 +11517,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noexperimental_objc_include_scanning
 --experimental_omitfp
 --noexperimental_omitfp
---experimental_oom_more_eagerly_threshold=
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
 --experimental_platform_in_output_dir
@@ -11626,8 +11655,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --flaky_test_attempts=
 --force_pic
 --noforce_pic
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --genrule_strategy=
@@ -12087,6 +12116,7 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noverbose_explanations
 --verbose_failures
 --noverbose_failures
+--visionos_cpus=
 --watchfs
 --nowatchfs
 --watchos_cpus=
@@ -12175,6 +12205,8 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -12208,7 +12240,6 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_gc_thrashing_limits=
 --experimental_get_fixed_configured_action_env
 --noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
@@ -12223,7 +12254,6 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
---experimental_oom_more_eagerly_threshold=
 --experimental_platforms_api
 --noexperimental_platforms_api
 --experimental_profile_additional_tasks=
@@ -12277,8 +12307,8 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noexperimental_windows_watchfs
 --experimental_worker_for_repo_fetching={off,platform,virtual}
 --experimental_workspace_rules_log_file=path
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --google_auth_scopes=
@@ -12513,6 +12543,8 @@ BAZEL_COMMAND_QUERY_FLAGS="
 BAZEL_COMMAND_RUN_ARGUMENT="label-bin"
 BAZEL_COMMAND_RUN_FLAGS="
 --action_env=
+--allow_analysis_cache_discard
+--noallow_analysis_cache_discard
 --allow_analysis_failures
 --noallow_analysis_failures
 --allow_yanked_versions=
@@ -12693,6 +12725,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -12763,7 +12797,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noexperimental_fetch_all_coverage_outputs
 --experimental_filter_library_jar_with_program_jar
 --noexperimental_filter_library_jar_with_program_jar
---experimental_gc_thrashing_limits=
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
 --experimental_get_fixed_configured_action_env
@@ -12801,7 +12834,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noexperimental_objc_include_scanning
 --experimental_omitfp
 --noexperimental_omitfp
---experimental_oom_more_eagerly_threshold=
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
 --experimental_platform_in_output_dir
@@ -12940,8 +12972,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --flaky_test_attempts=
 --force_pic
 --noforce_pic
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --genrule_strategy=
@@ -13401,6 +13433,7 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noverbose_explanations
 --verbose_failures
 --noverbose_failures
+--visionos_cpus=
 --watchfs
 --nowatchfs
 --watchos_cpus=
@@ -13486,6 +13519,8 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -13519,7 +13554,6 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_gc_thrashing_limits=
 --experimental_get_fixed_configured_action_env
 --noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
@@ -13532,7 +13566,6 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
---experimental_oom_more_eagerly_threshold=
 --experimental_platforms_api
 --noexperimental_platforms_api
 --experimental_profile_additional_tasks=
@@ -13585,8 +13618,8 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noexperimental_windows_watchfs
 --experimental_worker_for_repo_fetching={off,platform,virtual}
 --experimental_workspace_rules_log_file=path
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --google_auth_scopes=
@@ -13818,6 +13851,8 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -13851,7 +13886,6 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_gc_thrashing_limits=
 --experimental_get_fixed_configured_action_env
 --noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
@@ -13864,7 +13898,6 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
---experimental_oom_more_eagerly_threshold=
 --experimental_platforms_api
 --noexperimental_platforms_api
 --experimental_profile_additional_tasks=
@@ -13918,8 +13951,8 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noexperimental_windows_watchfs
 --experimental_worker_for_repo_fetching={off,platform,virtual}
 --experimental_workspace_rules_log_file=path
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --google_auth_scopes=
@@ -14101,6 +14134,8 @@ BAZEL_COMMAND_SYNC_FLAGS="
 BAZEL_COMMAND_TEST_ARGUMENT="label-test"
 BAZEL_COMMAND_TEST_FLAGS="
 --action_env=
+--allow_analysis_cache_discard
+--noallow_analysis_cache_discard
 --allow_analysis_failures
 --noallow_analysis_failures
 --allow_yanked_versions=
@@ -14281,6 +14316,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -14351,7 +14388,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noexperimental_fetch_all_coverage_outputs
 --experimental_filter_library_jar_with_program_jar
 --noexperimental_filter_library_jar_with_program_jar
---experimental_gc_thrashing_limits=
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
 --experimental_get_fixed_configured_action_env
@@ -14389,7 +14425,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noexperimental_objc_include_scanning
 --experimental_omitfp
 --noexperimental_omitfp
---experimental_oom_more_eagerly_threshold=
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
 --experimental_platform_in_output_dir
@@ -14528,8 +14563,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --flaky_test_attempts=
 --force_pic
 --noforce_pic
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --genrule_strategy=
@@ -14994,6 +15029,7 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noverbose_failures
 --verbose_test_summary
 --noverbose_test_summary
+--visionos_cpus=
 --watchfs
 --nowatchfs
 --watchos_cpus=
@@ -15079,6 +15115,8 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
+--experimental_bep_exec_request_include_residue
+--noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -15112,7 +15150,6 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_gc_thrashing_limits=
 --experimental_get_fixed_configured_action_env
 --noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
@@ -15125,7 +15162,6 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noexperimental_java_library_export
 --experimental_lazy_template_expansion
 --noexperimental_lazy_template_expansion
---experimental_oom_more_eagerly_threshold=
 --experimental_platforms_api
 --noexperimental_platforms_api
 --experimental_profile_additional_tasks=
@@ -15178,8 +15214,8 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noexperimental_windows_watchfs
 --experimental_worker_for_repo_fetching={off,platform,virtual}
 --experimental_workspace_rules_log_file=path
---gc_thrashing_limits_retained_heap_limiter_mutually_exclusive
---nogc_thrashing_limits_retained_heap_limiter_mutually_exclusive
+--gc_thrashing_limits=
+--gc_thrashing_threshold=
 --generate_json_trace_profile={auto,yes,no}
 --nogenerate_json_trace_profile
 --gnu_format
