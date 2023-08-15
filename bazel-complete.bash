@@ -858,8 +858,6 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -946,6 +944,8 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_resolved_file_instead_of_workspace=
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_scale_timeouts=
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
@@ -1028,8 +1028,6 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_linker_input_cc_api
 --noincompatible_require_linker_input_cc_api
 --incompatible_run_shell_command_string
@@ -1153,10 +1151,7 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --announce_rc
 --noannounce_rc
 --apk_signing_method={v1,v2,v1_v2,v4}
---apple_compiler=
 --apple_crosstool_top=label
---apple_enable_auto_dsym_dbg
---noapple_enable_auto_dsym_dbg
 --apple_generate_dsym
 --noapple_generate_dsym
 --apple_grte_top=label
@@ -1312,8 +1307,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -1370,8 +1363,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_docker_sandbox
 --noexperimental_enable_docker_sandbox
---experimental_enable_objc_cc_deps
---noexperimental_enable_objc_cc_deps
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
@@ -1482,6 +1473,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -1741,8 +1734,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
 --noincompatible_remove_legacy_whole_archive
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_ctx_in_configure_features
 --noincompatible_require_ctx_in_configure_features
 --incompatible_require_linker_input_cc_api
@@ -2055,8 +2046,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --tvos_cpus=
 --tvos_minimum_os=
 --tvos_sdk_version=
---tvos_simulator_device=
---tvos_simulator_version=
 --ui_actions_shown=
 --ui_event_filters=
 --universe_scope=
@@ -2076,8 +2065,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --watchos_cpus=
 --watchos_minimum_os=
 --watchos_sdk_version=
---watchos_simulator_device=
---watchos_simulator_version=
 --worker_extra_flag=
 --worker_max_instances=
 --worker_max_multiplex_instances=
@@ -2123,10 +2110,7 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --announce_rc
 --noannounce_rc
 --apk_signing_method={v1,v2,v1_v2,v4}
---apple_compiler=
 --apple_crosstool_top=label
---apple_enable_auto_dsym_dbg
---noapple_enable_auto_dsym_dbg
 --apple_generate_dsym
 --noapple_generate_dsym
 --apple_grte_top=label
@@ -2281,8 +2265,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -2339,8 +2321,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_docker_sandbox
 --noexperimental_enable_docker_sandbox
---experimental_enable_objc_cc_deps
---noexperimental_enable_objc_cc_deps
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
@@ -2451,6 +2431,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -2691,8 +2673,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
 --noincompatible_remove_legacy_whole_archive
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_ctx_in_configure_features
 --noincompatible_require_ctx_in_configure_features
 --incompatible_require_linker_input_cc_api
@@ -2974,8 +2954,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --tvos_cpus=
 --tvos_minimum_os=
 --tvos_sdk_version=
---tvos_simulator_device=
---tvos_simulator_version=
 --ui_actions_shown=
 --ui_event_filters=
 --use_ijars
@@ -2994,8 +2972,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --watchos_cpus=
 --watchos_minimum_os=
 --watchos_sdk_version=
---watchos_simulator_device=
---watchos_simulator_version=
 --worker_extra_flag=
 --worker_max_instances=
 --worker_max_multiplex_instances=
@@ -3040,10 +3016,7 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --announce_rc
 --noannounce_rc
 --apk_signing_method={v1,v2,v1_v2,v4}
---apple_compiler=
 --apple_crosstool_top=label
---apple_enable_auto_dsym_dbg
---noapple_enable_auto_dsym_dbg
 --apple_generate_dsym
 --noapple_generate_dsym
 --apple_grte_top=label
@@ -3200,8 +3173,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -3258,8 +3229,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_docker_sandbox
 --noexperimental_enable_docker_sandbox
---experimental_enable_objc_cc_deps
---noexperimental_enable_objc_cc_deps
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
@@ -3370,6 +3339,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -3611,8 +3582,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
 --noincompatible_remove_legacy_whole_archive
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_ctx_in_configure_features
 --noincompatible_require_ctx_in_configure_features
 --incompatible_require_linker_input_cc_api
@@ -3897,8 +3866,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --tvos_cpus=
 --tvos_minimum_os=
 --tvos_sdk_version=
---tvos_simulator_device=
---tvos_simulator_version=
 --ui_actions_shown=
 --ui_event_filters=
 --use_ijars
@@ -3917,8 +3884,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --watchos_cpus=
 --watchos_minimum_os=
 --watchos_sdk_version=
---watchos_simulator_device=
---watchos_simulator_version=
 --worker_extra_flag=
 --worker_max_instances=
 --worker_max_multiplex_instances=
@@ -3963,10 +3928,7 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --announce_rc
 --noannounce_rc
 --apk_signing_method={v1,v2,v1_v2,v4}
---apple_compiler=
 --apple_crosstool_top=label
---apple_enable_auto_dsym_dbg
---noapple_enable_auto_dsym_dbg
 --apple_generate_dsym
 --noapple_generate_dsym
 --apple_grte_top=label
@@ -4123,8 +4085,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -4181,8 +4141,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_docker_sandbox
 --noexperimental_enable_docker_sandbox
---experimental_enable_objc_cc_deps
---noexperimental_enable_objc_cc_deps
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
@@ -4293,6 +4251,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -4536,8 +4496,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
 --noincompatible_remove_legacy_whole_archive
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_ctx_in_configure_features
 --noincompatible_require_ctx_in_configure_features
 --incompatible_require_linker_input_cc_api
@@ -4821,8 +4779,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --tvos_cpus=
 --tvos_minimum_os=
 --tvos_sdk_version=
---tvos_simulator_device=
---tvos_simulator_version=
 --ui_actions_shown=
 --ui_event_filters=
 --use_ijars
@@ -4841,8 +4797,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --watchos_cpus=
 --watchos_minimum_os=
 --watchos_sdk_version=
---watchos_simulator_device=
---watchos_simulator_version=
 --worker_extra_flag=
 --worker_max_instances=
 --worker_max_multiplex_instances=
@@ -4888,10 +4842,7 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --announce_rc
 --noannounce_rc
 --apk_signing_method={v1,v2,v1_v2,v4}
---apple_compiler=
 --apple_crosstool_top=label
---apple_enable_auto_dsym_dbg
---noapple_enable_auto_dsym_dbg
 --apple_generate_dsym
 --noapple_generate_dsym
 --apple_grte_top=label
@@ -5048,8 +4999,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -5106,8 +5055,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_docker_sandbox
 --noexperimental_enable_docker_sandbox
---experimental_enable_objc_cc_deps
---noexperimental_enable_objc_cc_deps
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
@@ -5218,6 +5165,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -5458,8 +5407,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
 --noincompatible_remove_legacy_whole_archive
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_ctx_in_configure_features
 --noincompatible_require_ctx_in_configure_features
 --incompatible_require_linker_input_cc_api
@@ -5742,8 +5689,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --tvos_cpus=
 --tvos_minimum_os=
 --tvos_sdk_version=
---tvos_simulator_device=
---tvos_simulator_version=
 --ui_actions_shown=
 --ui_event_filters=
 --use_ijars
@@ -5762,8 +5707,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --watchos_cpus=
 --watchos_minimum_os=
 --watchos_sdk_version=
---watchos_simulator_device=
---watchos_simulator_version=
 --worker_extra_flag=
 --worker_max_instances=
 --worker_max_multiplex_instances=
@@ -5809,10 +5752,7 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --announce_rc
 --noannounce_rc
 --apk_signing_method={v1,v2,v1_v2,v4}
---apple_compiler=
 --apple_crosstool_top=label
---apple_enable_auto_dsym_dbg
---noapple_enable_auto_dsym_dbg
 --apple_generate_dsym
 --noapple_generate_dsym
 --apple_grte_top=label
@@ -5967,8 +5907,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -6025,8 +5963,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_docker_sandbox
 --noexperimental_enable_docker_sandbox
---experimental_enable_objc_cc_deps
---noexperimental_enable_objc_cc_deps
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
@@ -6137,6 +6073,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -6377,8 +6315,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
 --noincompatible_remove_legacy_whole_archive
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_ctx_in_configure_features
 --noincompatible_require_ctx_in_configure_features
 --incompatible_require_linker_input_cc_api
@@ -6664,8 +6600,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --tvos_cpus=
 --tvos_minimum_os=
 --tvos_sdk_version=
---tvos_simulator_device=
---tvos_simulator_version=
 --ui_actions_shown=
 --ui_event_filters=
 --use_ijars
@@ -6686,8 +6620,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --watchos_cpus=
 --watchos_minimum_os=
 --watchos_sdk_version=
---watchos_simulator_device=
---watchos_simulator_version=
 --worker_extra_flag=
 --worker_max_instances=
 --worker_max_multiplex_instances=
@@ -6733,10 +6665,7 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --announce_rc
 --noannounce_rc
 --apk_signing_method={v1,v2,v1_v2,v4}
---apple_compiler=
 --apple_crosstool_top=label
---apple_enable_auto_dsym_dbg
---noapple_enable_auto_dsym_dbg
 --apple_generate_dsym
 --noapple_generate_dsym
 --apple_grte_top=label
@@ -6892,8 +6821,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -6950,8 +6877,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_docker_sandbox
 --noexperimental_enable_docker_sandbox
---experimental_enable_objc_cc_deps
---noexperimental_enable_objc_cc_deps
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
@@ -7062,6 +6987,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -7313,8 +7240,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
 --noincompatible_remove_legacy_whole_archive
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_ctx_in_configure_features
 --noincompatible_require_ctx_in_configure_features
 --incompatible_require_linker_input_cc_api
@@ -7635,8 +7560,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --tvos_cpus=
 --tvos_minimum_os=
 --tvos_sdk_version=
---tvos_simulator_device=
---tvos_simulator_version=
 --ui_actions_shown=
 --ui_event_filters=
 --universe_scope=
@@ -7658,8 +7581,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --watchos_cpus=
 --watchos_minimum_os=
 --watchos_sdk_version=
---watchos_simulator_device=
---watchos_simulator_version=
 --worker_extra_flag=
 --worker_max_instances=
 --worker_max_multiplex_instances=
@@ -7740,8 +7661,6 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -7828,6 +7747,8 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_resolved_file_instead_of_workspace=
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_scale_timeouts=
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
@@ -7910,8 +7831,6 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_linker_input_cc_api
 --noincompatible_require_linker_input_cc_api
 --incompatible_run_shell_command_string
@@ -8079,8 +7998,6 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -8168,6 +8085,8 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --experimental_repository_hash_file=
 --experimental_repository_resolved_file=
 --experimental_resolved_file_instead_of_workspace=
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_scale_timeouts=
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
@@ -8254,8 +8173,6 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_linker_input_cc_api
 --noincompatible_require_linker_input_cc_api
 --incompatible_run_shell_command_string
@@ -8419,8 +8336,6 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -8507,6 +8422,8 @@ BAZEL_COMMAND_HELP_FLAGS="
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_resolved_file_instead_of_workspace=
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_scale_timeouts=
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
@@ -8590,8 +8507,6 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_linker_input_cc_api
 --noincompatible_require_linker_input_cc_api
 --incompatible_run_shell_command_string
@@ -8717,10 +8632,7 @@ BAZEL_COMMAND_INFO_FLAGS="
 --announce_rc
 --noannounce_rc
 --apk_signing_method={v1,v2,v1_v2,v4}
---apple_compiler=
 --apple_crosstool_top=label
---apple_enable_auto_dsym_dbg
---noapple_enable_auto_dsym_dbg
 --apple_generate_dsym
 --noapple_generate_dsym
 --apple_grte_top=label
@@ -8875,8 +8787,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -8933,8 +8843,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_docker_sandbox
 --noexperimental_enable_docker_sandbox
---experimental_enable_objc_cc_deps
---noexperimental_enable_objc_cc_deps
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
@@ -9045,6 +8953,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -9285,8 +9195,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
 --noincompatible_remove_legacy_whole_archive
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_ctx_in_configure_features
 --noincompatible_require_ctx_in_configure_features
 --incompatible_require_linker_input_cc_api
@@ -9570,8 +9478,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --tvos_cpus=
 --tvos_minimum_os=
 --tvos_sdk_version=
---tvos_simulator_device=
---tvos_simulator_version=
 --ui_actions_shown=
 --ui_event_filters=
 --use_ijars
@@ -9590,8 +9496,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --watchos_cpus=
 --watchos_minimum_os=
 --watchos_sdk_version=
---watchos_simulator_device=
---watchos_simulator_version=
 --worker_extra_flag=
 --worker_max_instances=
 --worker_max_multiplex_instances=
@@ -9670,8 +9574,6 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -9758,6 +9660,8 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_resolved_file_instead_of_workspace=
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_scale_timeouts=
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
@@ -9840,8 +9744,6 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_linker_input_cc_api
 --noincompatible_require_linker_input_cc_api
 --incompatible_run_shell_command_string
@@ -9967,10 +9869,7 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --announce_rc
 --noannounce_rc
 --apk_signing_method={v1,v2,v1_v2,v4}
---apple_compiler=
 --apple_crosstool_top=label
---apple_enable_auto_dsym_dbg
---noapple_enable_auto_dsym_dbg
 --apple_generate_dsym
 --noapple_generate_dsym
 --apple_grte_top=label
@@ -10127,8 +10026,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -10185,8 +10082,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_docker_sandbox
 --noexperimental_enable_docker_sandbox
---experimental_enable_objc_cc_deps
---noexperimental_enable_objc_cc_deps
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
@@ -10297,6 +10192,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -10537,8 +10434,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
 --noincompatible_remove_legacy_whole_archive
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_ctx_in_configure_features
 --noincompatible_require_ctx_in_configure_features
 --incompatible_require_linker_input_cc_api
@@ -10828,8 +10723,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --tvos_cpus=
 --tvos_minimum_os=
 --tvos_sdk_version=
---tvos_simulator_device=
---tvos_simulator_version=
 --ui_actions_shown=
 --ui_event_filters=
 --use_ijars
@@ -10848,8 +10741,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --watchos_cpus=
 --watchos_minimum_os=
 --watchos_sdk_version=
---watchos_simulator_device=
---watchos_simulator_version=
 --worker_extra_flag=
 --worker_max_instances=
 --worker_max_multiplex_instances=
@@ -10934,8 +10825,6 @@ BAZEL_COMMAND_MOD_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -11022,6 +10911,8 @@ BAZEL_COMMAND_MOD_FLAGS="
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_resolved_file_instead_of_workspace=
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_scale_timeouts=
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
@@ -11116,8 +11007,6 @@ BAZEL_COMMAND_MOD_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_linker_input_cc_api
 --noincompatible_require_linker_input_cc_api
 --incompatible_run_shell_command_string
@@ -11250,10 +11139,7 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --announce_rc
 --noannounce_rc
 --apk_signing_method={v1,v2,v1_v2,v4}
---apple_compiler=
 --apple_crosstool_top=label
---apple_enable_auto_dsym_dbg
---noapple_enable_auto_dsym_dbg
 --apple_generate_dsym
 --noapple_generate_dsym
 --apple_grte_top=label
@@ -11408,8 +11294,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -11466,8 +11350,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_docker_sandbox
 --noexperimental_enable_docker_sandbox
---experimental_enable_objc_cc_deps
---noexperimental_enable_objc_cc_deps
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
@@ -11578,6 +11460,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -11818,8 +11702,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
 --noincompatible_remove_legacy_whole_archive
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_ctx_in_configure_features
 --noincompatible_require_ctx_in_configure_features
 --incompatible_require_linker_input_cc_api
@@ -12102,8 +11984,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --tvos_cpus=
 --tvos_minimum_os=
 --tvos_sdk_version=
---tvos_simulator_device=
---tvos_simulator_version=
 --ui_actions_shown=
 --ui_event_filters=
 --use_ijars
@@ -12122,8 +12002,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --watchos_cpus=
 --watchos_minimum_os=
 --watchos_sdk_version=
---watchos_simulator_device=
---watchos_simulator_version=
 --worker_extra_flag=
 --worker_max_instances=
 --worker_max_multiplex_instances=
@@ -12205,8 +12083,6 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -12296,6 +12172,8 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --experimental_repository_hash_file=
 --experimental_repository_resolved_file=
 --experimental_resolved_file_instead_of_workspace=
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_scale_timeouts=
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
@@ -12396,8 +12274,6 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_linker_input_cc_api
 --noincompatible_require_linker_input_cc_api
 --incompatible_run_shell_command_string
@@ -12567,10 +12443,7 @@ BAZEL_COMMAND_RUN_FLAGS="
 --announce_rc
 --noannounce_rc
 --apk_signing_method={v1,v2,v1_v2,v4}
---apple_compiler=
 --apple_crosstool_top=label
---apple_enable_auto_dsym_dbg
---noapple_enable_auto_dsym_dbg
 --apple_generate_dsym
 --noapple_generate_dsym
 --apple_grte_top=label
@@ -12725,8 +12598,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -12783,8 +12654,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_docker_sandbox
 --noexperimental_enable_docker_sandbox
---experimental_enable_objc_cc_deps
---noexperimental_enable_objc_cc_deps
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
@@ -12895,6 +12764,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -13135,8 +13006,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
 --noincompatible_remove_legacy_whole_archive
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_ctx_in_configure_features
 --noincompatible_require_ctx_in_configure_features
 --incompatible_require_linker_input_cc_api
@@ -13419,8 +13288,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --tvos_cpus=
 --tvos_minimum_os=
 --tvos_sdk_version=
---tvos_simulator_device=
---tvos_simulator_version=
 --ui_actions_shown=
 --ui_event_filters=
 --use_ijars
@@ -13439,8 +13306,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --watchos_cpus=
 --watchos_minimum_os=
 --watchos_sdk_version=
---watchos_simulator_device=
---watchos_simulator_version=
 --worker_extra_flag=
 --worker_max_instances=
 --worker_max_multiplex_instances=
@@ -13519,8 +13384,6 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -13607,6 +13470,8 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_resolved_file_instead_of_workspace=
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_scale_timeouts=
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
@@ -13690,8 +13555,6 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_linker_input_cc_api
 --noincompatible_require_linker_input_cc_api
 --incompatible_run_shell_command_string
@@ -13851,8 +13714,6 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -13940,6 +13801,8 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --experimental_repository_hash_file=
 --experimental_repository_resolved_file=
 --experimental_resolved_file_instead_of_workspace=
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_scale_timeouts=
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
@@ -14026,8 +13889,6 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_linker_input_cc_api
 --noincompatible_require_linker_input_cc_api
 --incompatible_run_shell_command_string
@@ -14158,10 +14019,7 @@ BAZEL_COMMAND_TEST_FLAGS="
 --announce_rc
 --noannounce_rc
 --apk_signing_method={v1,v2,v1_v2,v4}
---apple_compiler=
 --apple_crosstool_top=label
---apple_enable_auto_dsym_dbg
---noapple_enable_auto_dsym_dbg
 --apple_generate_dsym
 --noapple_generate_dsym
 --apple_grte_top=label
@@ -14316,8 +14174,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noexperimental_android_use_parallel_dex2oat
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -14374,8 +14230,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_docker_sandbox
 --noexperimental_enable_docker_sandbox
---experimental_enable_objc_cc_deps
---noexperimental_enable_objc_cc_deps
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
@@ -14486,6 +14340,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noexperimental_retain_test_configuration_across_testonly
 --experimental_run_android_lint_on_java_rules
 --noexperimental_run_android_lint_on_java_rules
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_sandbox_async_tree_delete_idle_threads=
 --experimental_sandbox_memory_limit_mb=
 --experimental_sandboxfs_map_symlink_targets
@@ -14726,8 +14582,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noincompatible_remove_cpu_and_compiler_attributes_from_cc_toolchain
 --incompatible_remove_legacy_whole_archive
 --noincompatible_remove_legacy_whole_archive
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_ctx_in_configure_features
 --noincompatible_require_ctx_in_configure_features
 --incompatible_require_linker_input_cc_api
@@ -15013,8 +14867,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --tvos_cpus=
 --tvos_minimum_os=
 --tvos_sdk_version=
---tvos_simulator_device=
---tvos_simulator_version=
 --ui_actions_shown=
 --ui_event_filters=
 --use_ijars
@@ -15035,8 +14887,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --watchos_cpus=
 --watchos_minimum_os=
 --watchos_sdk_version=
---watchos_simulator_device=
---watchos_simulator_version=
 --worker_extra_flag=
 --worker_max_instances=
 --worker_max_multiplex_instances=
@@ -15115,8 +14965,6 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noexperimental_analysis_test_call
 --experimental_announce_profile_path
 --noexperimental_announce_profile_path
---experimental_bep_exec_request_include_residue
---noexperimental_bep_exec_request_include_residue
 --experimental_bep_target_summary
 --noexperimental_bep_target_summary
 --experimental_build_event_expand_filesets
@@ -15203,6 +15051,8 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_resolved_file_instead_of_workspace=
+--experimental_run_bep_event_include_residue
+--noexperimental_run_bep_event_include_residue
 --experimental_scale_timeouts=
 --experimental_sibling_repository_layout
 --noexperimental_sibling_repository_layout
@@ -15287,8 +15137,6 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noincompatible_remote_results_ignore_disk
 --incompatible_remote_symlinks
 --noincompatible_remote_symlinks
---incompatible_remove_rule_name_parameter
---noincompatible_remove_rule_name_parameter
 --incompatible_require_linker_input_cc_api
 --noincompatible_require_linker_input_cc_api
 --incompatible_run_shell_command_string
