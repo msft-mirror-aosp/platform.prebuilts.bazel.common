@@ -45,7 +45,8 @@ UPDATE_SCRIPT_PATH: Final[str] = "prebuilts/bazel/common/update.sh"
 AFFECTED_PROJECT_DIRECTORIES: Final[list[str]] = [
     "prebuilts/bazel/common",
     "prebuilts/bazel/linux-x86_64",
-    "prebuilts/bazel/darwin-x86_64"
+    "prebuilts/bazel/darwin-x86_64",
+    "build/bazel"
 ]
 MIXED_DROID_PATH: Final[str] = "build/bazel/ci/mixed_droid.sh"
 
