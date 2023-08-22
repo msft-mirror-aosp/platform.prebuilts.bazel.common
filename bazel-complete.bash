@@ -124,13 +124,17 @@ _bazel__get_rule_match_pattern() {
 }
 
 # Compute workspace directory. Search for the innermost
-# enclosing directory with a WORKSPACE file.
+# enclosing directory with a boundary file (see
+# src/main/cpp/workspace_layout.cc).
 _bazel__get_workspace_path() {
   local workspace=$PWD
   while true; do
-    if [ -f "${workspace}/WORKSPACE" ]; then
+    if [ -f "${workspace}/WORKSPACE" ] || \
+       [ -f "${workspace}/WORKSPACE.bazel" ] || \
+       [ -f "${workspace}/MODULE.bazel" ] || \
+       [ -f "${workspace}/REPO.bazel" ]; then
       break
-    elif [ -z "$workspace" -o "$workspace" = "/" ]; then
+    elif [ -z "$workspace" ] || [ "$workspace" = "/" ]; then
       workspace=$PWD
       break;
     fi
@@ -1154,7 +1158,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspect_deps={off,conservative,precise}
 --aspects=
 --aspects_parameters=
@@ -1414,6 +1417,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -2113,7 +2118,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --attempt_to_print_relative_paths
@@ -2372,6 +2376,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -3019,7 +3025,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --attempt_to_print_relative_paths
@@ -3280,6 +3285,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -3931,7 +3938,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --async
@@ -4192,6 +4198,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -4845,7 +4853,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --attempt_to_print_relative_paths
@@ -5106,6 +5113,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -5755,7 +5764,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --attempt_to_print_relative_paths
@@ -6014,6 +6022,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -6668,7 +6678,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspect_deps={off,conservative,precise}
 --aspects=
 --aspects_parameters=
@@ -6928,6 +6937,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -8635,7 +8646,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --attempt_to_print_relative_paths
@@ -8894,6 +8904,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -9872,7 +9884,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --attempt_to_print_relative_paths
@@ -10133,6 +10144,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -11142,7 +11155,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --attempt_to_print_relative_paths
@@ -11401,6 +11413,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -12446,7 +12460,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --attempt_to_print_relative_paths
@@ -12705,6 +12718,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -14022,7 +14037,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --attempt_to_print_relative_paths
@@ -14281,6 +14295,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
