@@ -25,13 +25,14 @@ this will run `update.sh` which  will also:
   - verify that the downloaded binary has the correct SHA-256
     checksum as provided from Bazel CI metadata.
 
-Once you have the binaries, you will need to create and send up to three CLs,
+Once you have the binaries, you will need to create and send up to four CLs,
 to update the Linux, macOS, and platform-agnostic prebuilts that live in separate
 Git repositories, i.e.
 
 *   https://android.googlesource.com/platform/prebuilts/bazel/linux-x86_64/
 *   https://android.googlesource.com/platform/prebuilts/bazel/darwin-x86_64/
 *   https://android.googlesource.com/platform/prebuilts/bazel/common/
+*   https://android.googlesource.com/platform/build/bazel
 
 The update script does not automatically create CLs, so you need to create them
 manually. In each CL description, mention the testing you did, which should

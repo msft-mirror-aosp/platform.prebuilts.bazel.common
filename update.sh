@@ -88,4 +88,4 @@ download_and_verify "darwin" "${darwin_nojdk_url}" "${darwin_nojdk_sha256}"
 ${common_bazel_dir}/update_tools.sh "$linux_bazel_dir/$linux_downloaded_file" "$common_bazel_dir" "$linux_bazel_dir" "$bazel_src_dir"
 
 
-echo "Done. This script may have affected all of prebuilts/bazel/common, prebuilts/bazel/linux-x86_64 and prebuilts/bazel/darwin-x86_64. Be sure to upload changes for all affected git repositories."
+echo "Done. This script may have affected all of build/bazel, prebuilts/bazel/common, prebuilts/bazel/linux-x86_64 and prebuilts/bazel/darwin-x86_64. Be sure to upload changes for all affected git repositories."
