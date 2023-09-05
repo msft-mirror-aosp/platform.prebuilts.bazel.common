@@ -986,6 +986,8 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -1645,6 +1647,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -2587,6 +2591,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -3495,6 +3501,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -4408,6 +4416,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -5318,6 +5328,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -6225,6 +6237,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -7145,6 +7159,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -7784,6 +7800,8 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -8126,6 +8144,8 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -8464,6 +8484,8 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -9109,6 +9131,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -9702,6 +9726,8 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -10349,6 +10375,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -10964,6 +10992,8 @@ BAZEL_COMMAND_MOD_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -11618,6 +11648,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -12226,6 +12258,8 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -12923,6 +12957,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -13516,6 +13552,8 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -13850,6 +13888,8 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -14502,6 +14542,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -15101,6 +15143,8 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
