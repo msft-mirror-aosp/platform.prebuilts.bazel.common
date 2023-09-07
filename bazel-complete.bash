@@ -1004,6 +1004,8 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noincompatible_do_not_split_linking_cmdline
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
@@ -1373,8 +1375,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -1687,6 +1687,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -2332,8 +2334,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -2629,6 +2629,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -3241,8 +3243,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -3539,6 +3539,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -4154,8 +4156,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -4454,6 +4454,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -5069,8 +5071,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -5366,6 +5366,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -5978,8 +5980,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -6275,6 +6275,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -6893,8 +6895,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -7199,6 +7199,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -7818,6 +7820,8 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noincompatible_do_not_split_linking_cmdline
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
@@ -8164,6 +8168,8 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noincompatible_enforce_config_setting_visibility
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
@@ -8502,6 +8508,8 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noincompatible_do_not_split_linking_cmdline
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
@@ -8872,8 +8880,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -9169,6 +9175,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -9744,6 +9752,8 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noincompatible_do_not_split_linking_cmdline
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
@@ -10116,8 +10126,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -10413,6 +10421,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -11012,6 +11022,8 @@ BAZEL_COMMAND_MOD_FLAGS="
 --noincompatible_enforce_config_setting_visibility
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
@@ -11389,8 +11401,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -11686,6 +11696,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -12280,6 +12292,8 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noincompatible_enforce_config_setting_visibility
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
@@ -12698,8 +12712,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -12995,6 +13007,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -13570,6 +13584,8 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noincompatible_do_not_split_linking_cmdline
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
@@ -13908,6 +13924,8 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noincompatible_enforce_config_setting_visibility
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
@@ -14283,8 +14301,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -14580,6 +14596,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -15161,6 +15179,8 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noincompatible_do_not_split_linking_cmdline
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
