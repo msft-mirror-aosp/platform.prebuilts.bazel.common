@@ -922,7 +922,6 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -1085,6 +1084,7 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -1451,7 +1451,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -1933,6 +1932,7 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -2410,7 +2410,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -2846,6 +2845,7 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -3257,6 +3257,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
 --experimental_import_deps_checking={off,warning,error}
+--experimental_include_default_values
+--noexperimental_include_default_values
 --experimental_include_xcode_execution_requirements
 --noexperimental_include_xcode_execution_requirements
 --experimental_inmemory_dotd_files
@@ -3319,7 +3321,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -3757,6 +3758,7 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -4232,7 +4234,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -4671,6 +4672,7 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -5147,7 +5149,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -5584,6 +5585,7 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -6056,7 +6058,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -6494,6 +6495,7 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -6971,7 +6973,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -7449,6 +7450,7 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -7738,7 +7740,6 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -7903,6 +7904,7 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -8081,7 +8083,6 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -8253,6 +8254,7 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -8425,7 +8427,6 @@ BAZEL_COMMAND_HELP_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -8590,6 +8591,7 @@ BAZEL_COMMAND_HELP_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -8956,7 +8958,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -9392,6 +9393,7 @@ BAZEL_COMMAND_INFO_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -9670,7 +9672,6 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -9833,6 +9834,7 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -10202,7 +10204,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -10642,6 +10643,7 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -10928,7 +10930,6 @@ BAZEL_COMMAND_MOD_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -11108,6 +11109,7 @@ BAZEL_COMMAND_MOD_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -11477,7 +11479,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -11914,6 +11915,7 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -12195,7 +12197,6 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -12412,6 +12413,7 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -12788,7 +12790,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -13224,6 +13225,7 @@ BAZEL_COMMAND_RUN_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -13501,7 +13503,6 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -13665,6 +13666,7 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -13837,7 +13839,6 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -14010,6 +14011,7 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -14377,7 +14379,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -14815,6 +14816,7 @@ BAZEL_COMMAND_TEST_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -15095,7 +15097,6 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -15260,6 +15261,7 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
