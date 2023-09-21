@@ -124,13 +124,17 @@ _bazel__get_rule_match_pattern() {
 }
 
 # Compute workspace directory. Search for the innermost
-# enclosing directory with a WORKSPACE file.
+# enclosing directory with a boundary file (see
+# src/main/cpp/workspace_layout.cc).
 _bazel__get_workspace_path() {
   local workspace=$PWD
   while true; do
-    if [ -f "${workspace}/WORKSPACE" ]; then
+    if [ -f "${workspace}/WORKSPACE" ] || \
+       [ -f "${workspace}/WORKSPACE.bazel" ] || \
+       [ -f "${workspace}/MODULE.bazel" ] || \
+       [ -f "${workspace}/REPO.bazel" ]; then
       break
-    elif [ -z "$workspace" -o "$workspace" = "/" ]; then
+    elif [ -z "$workspace" ] || [ "$workspace" = "/" ]; then
       workspace=$PWD
       break;
     fi
@@ -891,8 +895,6 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -920,7 +922,6 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -984,6 +985,8 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -1000,10 +1003,14 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noincompatible_do_not_split_linking_cmdline
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
 --noincompatible_java_common_parameters
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_new_actions_api
 --noincompatible_new_actions_api
 --incompatible_no_attr_license
@@ -1012,6 +1019,8 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noincompatible_no_implicit_file_export
 --incompatible_no_rule_outputs_param
 --noincompatible_no_rule_outputs_param
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_remote_build_event_upload_respect_no_cache
@@ -1075,6 +1084,7 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -1154,7 +1164,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspect_deps={off,conservative,precise}
 --aspects=
 --aspects_parameters=
@@ -1366,8 +1375,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -1377,8 +1384,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noexperimental_filter_library_jar_with_program_jar
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -1414,6 +1419,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -1444,7 +1451,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -1640,6 +1646,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -1678,6 +1686,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -1690,6 +1700,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noincompatible_linkopts_in_user_link_flags
 --incompatible_make_thinlto_command_lines_standalone
 --noincompatible_make_thinlto_command_lines_standalone
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_merge_genfiles_directory
 --noincompatible_merge_genfiles_directory
 --incompatible_new_actions_api
@@ -1702,6 +1714,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_package_group_includes_double_slash
@@ -1756,8 +1770,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noincompatible_use_cc_configure_from_rules_cc
 --incompatible_use_host_features
 --noincompatible_use_host_features
---incompatible_use_platforms_repo_for_constraints
---noincompatible_use_platforms_repo_for_constraints
 --incompatible_use_python_toolchains
 --noincompatible_use_python_toolchains
 --incompatible_validate_top_level_header_inclusions
@@ -1920,6 +1932,7 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -2051,8 +2064,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --universe_scope=
 --use_ijars
 --nouse_ijars
---use_singlejar_apkbuilder
---nouse_singlejar_apkbuilder
 --use_target_platform_for_tests
 --nouse_target_platform_for_tests
 --verbose_explanations
@@ -2113,7 +2124,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --attempt_to_print_relative_paths
@@ -2324,8 +2334,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -2335,8 +2343,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noexperimental_filter_library_jar_with_program_jar
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -2372,6 +2378,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -2402,7 +2410,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -2583,6 +2590,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -2619,6 +2628,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -2631,6 +2642,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noincompatible_linkopts_in_user_link_flags
 --incompatible_make_thinlto_command_lines_standalone
 --noincompatible_make_thinlto_command_lines_standalone
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_merge_genfiles_directory
 --noincompatible_merge_genfiles_directory
 --incompatible_new_actions_api
@@ -2643,6 +2656,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -2695,8 +2710,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noincompatible_use_cc_configure_from_rules_cc
 --incompatible_use_host_features
 --noincompatible_use_host_features
---incompatible_use_platforms_repo_for_constraints
---noincompatible_use_platforms_repo_for_constraints
 --incompatible_use_python_toolchains
 --noincompatible_use_python_toolchains
 --incompatible_validate_top_level_header_inclusions
@@ -2832,6 +2845,7 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -2958,8 +2972,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --ui_event_filters=
 --use_ijars
 --nouse_ijars
---use_singlejar_apkbuilder
---nouse_singlejar_apkbuilder
 --use_target_platform_for_tests
 --nouse_target_platform_for_tests
 --verbose_explanations
@@ -3019,7 +3031,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --attempt_to_print_relative_paths
@@ -3232,8 +3243,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -3243,13 +3252,13 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noexperimental_filter_library_jar_with_program_jar
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
 --noexperimental_guard_against_concurrent_changes
 --experimental_import_deps_checking={off,warning,error}
+--experimental_include_default_values
+--noexperimental_include_default_values
 --experimental_include_xcode_execution_requirements
 --noexperimental_include_xcode_execution_requirements
 --experimental_inmemory_dotd_files
@@ -3280,6 +3289,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -3310,7 +3321,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -3492,6 +3502,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -3528,6 +3540,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -3540,6 +3554,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noincompatible_linkopts_in_user_link_flags
 --incompatible_make_thinlto_command_lines_standalone
 --noincompatible_make_thinlto_command_lines_standalone
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_merge_genfiles_directory
 --noincompatible_merge_genfiles_directory
 --incompatible_new_actions_api
@@ -3552,6 +3568,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -3604,8 +3622,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noincompatible_use_cc_configure_from_rules_cc
 --incompatible_use_host_features
 --noincompatible_use_host_features
---incompatible_use_platforms_repo_for_constraints
---noincompatible_use_platforms_repo_for_constraints
 --incompatible_use_python_toolchains
 --noincompatible_use_python_toolchains
 --incompatible_validate_top_level_header_inclusions
@@ -3742,6 +3758,7 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -3870,8 +3887,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --ui_event_filters=
 --use_ijars
 --nouse_ijars
---use_singlejar_apkbuilder
---nouse_singlejar_apkbuilder
 --use_target_platform_for_tests
 --nouse_target_platform_for_tests
 --verbose_explanations
@@ -3931,7 +3946,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --async
@@ -4144,8 +4158,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -4155,8 +4167,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noexperimental_filter_library_jar_with_program_jar
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -4192,6 +4202,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -4222,7 +4234,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -4406,6 +4417,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -4442,6 +4455,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -4454,6 +4469,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noincompatible_linkopts_in_user_link_flags
 --incompatible_make_thinlto_command_lines_standalone
 --noincompatible_make_thinlto_command_lines_standalone
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_merge_genfiles_directory
 --noincompatible_merge_genfiles_directory
 --incompatible_new_actions_api
@@ -4466,6 +4483,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -4518,8 +4537,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noincompatible_use_cc_configure_from_rules_cc
 --incompatible_use_host_features
 --noincompatible_use_host_features
---incompatible_use_platforms_repo_for_constraints
---noincompatible_use_platforms_repo_for_constraints
 --incompatible_use_python_toolchains
 --noincompatible_use_python_toolchains
 --incompatible_validate_top_level_header_inclusions
@@ -4655,6 +4672,7 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -4783,8 +4801,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --ui_event_filters=
 --use_ijars
 --nouse_ijars
---use_singlejar_apkbuilder
---nouse_singlejar_apkbuilder
 --use_target_platform_for_tests
 --nouse_target_platform_for_tests
 --verbose_explanations
@@ -4845,7 +4861,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --attempt_to_print_relative_paths
@@ -5058,8 +5073,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -5069,8 +5082,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noexperimental_filter_library_jar_with_program_jar
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -5106,6 +5117,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -5136,7 +5149,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -5317,6 +5329,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -5353,6 +5367,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -5365,6 +5381,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noincompatible_linkopts_in_user_link_flags
 --incompatible_make_thinlto_command_lines_standalone
 --noincompatible_make_thinlto_command_lines_standalone
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_merge_genfiles_directory
 --noincompatible_merge_genfiles_directory
 --incompatible_new_actions_api
@@ -5377,6 +5395,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -5429,8 +5449,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noincompatible_use_cc_configure_from_rules_cc
 --incompatible_use_host_features
 --noincompatible_use_host_features
---incompatible_use_platforms_repo_for_constraints
---noincompatible_use_platforms_repo_for_constraints
 --incompatible_use_python_toolchains
 --noincompatible_use_python_toolchains
 --incompatible_validate_top_level_header_inclusions
@@ -5567,6 +5585,7 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -5693,8 +5712,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --ui_event_filters=
 --use_ijars
 --nouse_ijars
---use_singlejar_apkbuilder
---nouse_singlejar_apkbuilder
 --use_target_platform_for_tests
 --nouse_target_platform_for_tests
 --verbose_explanations
@@ -5755,7 +5772,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --attempt_to_print_relative_paths
@@ -5966,8 +5982,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -5977,8 +5991,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noexperimental_filter_library_jar_with_program_jar
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -6014,6 +6026,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -6044,7 +6058,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -6225,6 +6238,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -6261,6 +6276,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -6273,6 +6290,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noincompatible_linkopts_in_user_link_flags
 --incompatible_make_thinlto_command_lines_standalone
 --noincompatible_make_thinlto_command_lines_standalone
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_merge_genfiles_directory
 --noincompatible_merge_genfiles_directory
 --incompatible_new_actions_api
@@ -6285,6 +6304,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -6337,8 +6358,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noincompatible_use_cc_configure_from_rules_cc
 --incompatible_use_host_features
 --noincompatible_use_host_features
---incompatible_use_platforms_repo_for_constraints
---noincompatible_use_platforms_repo_for_constraints
 --incompatible_use_python_toolchains
 --noincompatible_use_python_toolchains
 --incompatible_validate_top_level_header_inclusions
@@ -6476,6 +6495,7 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -6604,8 +6624,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --ui_event_filters=
 --use_ijars
 --nouse_ijars
---use_singlejar_apkbuilder
---nouse_singlejar_apkbuilder
 --use_target_platform_for_tests
 --nouse_target_platform_for_tests
 --verbose_explanations
@@ -6668,7 +6686,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspect_deps={off,conservative,precise}
 --aspects=
 --aspects_parameters=
@@ -6880,8 +6897,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -6891,8 +6906,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noexperimental_filter_library_jar_with_program_jar
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -6928,6 +6941,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -6958,7 +6973,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -7146,6 +7160,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -7184,6 +7200,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -7196,6 +7214,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noincompatible_linkopts_in_user_link_flags
 --incompatible_make_thinlto_command_lines_standalone
 --noincompatible_make_thinlto_command_lines_standalone
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_merge_genfiles_directory
 --noincompatible_merge_genfiles_directory
 --incompatible_new_actions_api
@@ -7208,6 +7228,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_package_group_includes_double_slash
@@ -7262,8 +7284,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noincompatible_use_cc_configure_from_rules_cc
 --incompatible_use_host_features
 --noincompatible_use_host_features
---incompatible_use_platforms_repo_for_constraints
---noincompatible_use_platforms_repo_for_constraints
 --incompatible_use_python_toolchains
 --noincompatible_use_python_toolchains
 --incompatible_validate_top_level_header_inclusions
@@ -7430,6 +7450,7 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -7565,8 +7586,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --universe_scope=
 --use_ijars
 --nouse_ijars
---use_singlejar_apkbuilder
---nouse_singlejar_apkbuilder
 --use_target_platform_for_tests
 --nouse_target_platform_for_tests
 --verbose_explanations
@@ -7694,8 +7713,6 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -7723,7 +7740,6 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -7787,6 +7803,8 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -7803,10 +7821,14 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noincompatible_do_not_split_linking_cmdline
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
 --noincompatible_java_common_parameters
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_new_actions_api
 --noincompatible_new_actions_api
 --incompatible_no_attr_license
@@ -7815,6 +7837,8 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noincompatible_no_implicit_file_export
 --incompatible_no_rule_outputs_param
 --noincompatible_no_rule_outputs_param
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_remote_build_event_upload_respect_no_cache
@@ -7880,6 +7904,7 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -8031,8 +8056,6 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -8060,7 +8083,6 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -8127,6 +8149,8 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -8145,10 +8169,14 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noincompatible_enforce_config_setting_visibility
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
 --noincompatible_java_common_parameters
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_new_actions_api
 --noincompatible_new_actions_api
 --incompatible_no_attr_license
@@ -8157,6 +8185,8 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noincompatible_no_implicit_file_export
 --incompatible_no_rule_outputs_param
 --noincompatible_no_rule_outputs_param
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_remote_build_event_upload_respect_no_cache
@@ -8224,6 +8254,7 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -8369,8 +8400,6 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -8398,7 +8427,6 @@ BAZEL_COMMAND_HELP_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -8463,6 +8491,8 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -8479,10 +8509,14 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noincompatible_do_not_split_linking_cmdline
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
 --noincompatible_java_common_parameters
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_new_actions_api
 --noincompatible_new_actions_api
 --incompatible_no_attr_license
@@ -8491,6 +8525,8 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noincompatible_no_implicit_file_export
 --incompatible_no_rule_outputs_param
 --noincompatible_no_rule_outputs_param
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_remote_build_event_upload_respect_no_cache
@@ -8555,6 +8591,7 @@ BAZEL_COMMAND_HELP_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -8635,7 +8672,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --attempt_to_print_relative_paths
@@ -8846,8 +8882,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -8857,8 +8891,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noexperimental_filter_library_jar_with_program_jar
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -8894,6 +8926,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -8924,7 +8958,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -9105,6 +9138,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -9141,6 +9176,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -9153,6 +9190,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noincompatible_linkopts_in_user_link_flags
 --incompatible_make_thinlto_command_lines_standalone
 --noincompatible_make_thinlto_command_lines_standalone
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_merge_genfiles_directory
 --noincompatible_merge_genfiles_directory
 --incompatible_new_actions_api
@@ -9165,6 +9204,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -9217,8 +9258,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noincompatible_use_cc_configure_from_rules_cc
 --incompatible_use_host_features
 --noincompatible_use_host_features
---incompatible_use_platforms_repo_for_constraints
---noincompatible_use_platforms_repo_for_constraints
 --incompatible_use_python_toolchains
 --noincompatible_use_python_toolchains
 --incompatible_validate_top_level_header_inclusions
@@ -9354,6 +9393,7 @@ BAZEL_COMMAND_INFO_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -9482,8 +9522,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --ui_event_filters=
 --use_ijars
 --nouse_ijars
---use_singlejar_apkbuilder
---nouse_singlejar_apkbuilder
 --use_target_platform_for_tests
 --nouse_target_platform_for_tests
 --verbose_explanations
@@ -9607,8 +9645,6 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -9636,7 +9672,6 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -9700,6 +9735,8 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -9716,10 +9753,14 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noincompatible_do_not_split_linking_cmdline
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
 --noincompatible_java_common_parameters
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_new_actions_api
 --noincompatible_new_actions_api
 --incompatible_no_attr_license
@@ -9728,6 +9769,8 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noincompatible_no_implicit_file_export
 --incompatible_no_rule_outputs_param
 --noincompatible_no_rule_outputs_param
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_remote_build_event_upload_respect_no_cache
@@ -9791,6 +9834,7 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -9872,7 +9916,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --attempt_to_print_relative_paths
@@ -10085,8 +10128,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -10096,8 +10137,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noexperimental_filter_library_jar_with_program_jar
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -10133,6 +10172,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -10163,7 +10204,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -10344,6 +10384,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -10380,6 +10422,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -10392,6 +10436,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noincompatible_linkopts_in_user_link_flags
 --incompatible_make_thinlto_command_lines_standalone
 --noincompatible_make_thinlto_command_lines_standalone
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_merge_genfiles_directory
 --noincompatible_merge_genfiles_directory
 --incompatible_new_actions_api
@@ -10404,6 +10450,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -10456,8 +10504,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noincompatible_use_cc_configure_from_rules_cc
 --incompatible_use_host_features
 --noincompatible_use_host_features
---incompatible_use_platforms_repo_for_constraints
---noincompatible_use_platforms_repo_for_constraints
 --incompatible_use_python_toolchains
 --noincompatible_use_python_toolchains
 --incompatible_validate_top_level_header_inclusions
@@ -10597,6 +10643,7 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -10727,8 +10774,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --ui_event_filters=
 --use_ijars
 --nouse_ijars
---use_singlejar_apkbuilder
---nouse_singlejar_apkbuilder
 --use_target_platform_for_tests
 --nouse_target_platform_for_tests
 --verbose_explanations
@@ -10858,8 +10903,6 @@ BAZEL_COMMAND_MOD_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -10887,7 +10930,6 @@ BAZEL_COMMAND_MOD_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -10961,6 +11003,8 @@ BAZEL_COMMAND_MOD_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -10979,10 +11023,14 @@ BAZEL_COMMAND_MOD_FLAGS="
 --noincompatible_enforce_config_setting_visibility
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
 --noincompatible_java_common_parameters
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_new_actions_api
 --noincompatible_new_actions_api
 --incompatible_no_attr_license
@@ -10991,6 +11039,8 @@ BAZEL_COMMAND_MOD_FLAGS="
 --noincompatible_no_implicit_file_export
 --incompatible_no_rule_outputs_param
 --noincompatible_no_rule_outputs_param
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_remote_build_event_upload_respect_no_cache
@@ -11059,6 +11109,7 @@ BAZEL_COMMAND_MOD_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -11142,7 +11193,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --attempt_to_print_relative_paths
@@ -11353,8 +11403,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -11364,8 +11412,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noexperimental_filter_library_jar_with_program_jar
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -11401,6 +11447,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -11431,7 +11479,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -11612,6 +11659,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -11648,6 +11697,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -11660,6 +11711,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noincompatible_linkopts_in_user_link_flags
 --incompatible_make_thinlto_command_lines_standalone
 --noincompatible_make_thinlto_command_lines_standalone
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_merge_genfiles_directory
 --noincompatible_merge_genfiles_directory
 --incompatible_new_actions_api
@@ -11672,6 +11725,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -11724,8 +11779,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noincompatible_use_cc_configure_from_rules_cc
 --incompatible_use_host_features
 --noincompatible_use_host_features
---incompatible_use_platforms_repo_for_constraints
---noincompatible_use_platforms_repo_for_constraints
 --incompatible_use_python_toolchains
 --noincompatible_use_python_toolchains
 --incompatible_validate_top_level_header_inclusions
@@ -11862,6 +11915,7 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -11988,8 +12042,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --ui_event_filters=
 --use_ijars
 --nouse_ijars
---use_singlejar_apkbuilder
---nouse_singlejar_apkbuilder
 --use_target_platform_for_tests
 --nouse_target_platform_for_tests
 --verbose_explanations
@@ -12116,8 +12168,6 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_graphless_query={auto,yes,no}
@@ -12147,7 +12197,6 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -12222,6 +12271,8 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -12242,12 +12293,16 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noincompatible_enforce_config_setting_visibility
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
 --noincompatible_java_common_parameters
 --incompatible_lexicographical_output
 --noincompatible_lexicographical_output
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_new_actions_api
 --noincompatible_new_actions_api
 --incompatible_no_attr_license
@@ -12256,6 +12311,8 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noincompatible_no_implicit_file_export
 --incompatible_no_rule_outputs_param
 --noincompatible_no_rule_outputs_param
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_package_group_includes_double_slash
@@ -12356,6 +12413,7 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -12446,7 +12504,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --attempt_to_print_relative_paths
@@ -12657,8 +12714,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -12668,8 +12723,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noexperimental_filter_library_jar_with_program_jar
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -12705,6 +12758,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -12735,7 +12790,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -12916,6 +12970,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -12952,6 +13008,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -12964,6 +13022,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noincompatible_linkopts_in_user_link_flags
 --incompatible_make_thinlto_command_lines_standalone
 --noincompatible_make_thinlto_command_lines_standalone
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_merge_genfiles_directory
 --noincompatible_merge_genfiles_directory
 --incompatible_new_actions_api
@@ -12976,6 +13036,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -13028,8 +13090,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noincompatible_use_cc_configure_from_rules_cc
 --incompatible_use_host_features
 --noincompatible_use_host_features
---incompatible_use_platforms_repo_for_constraints
---noincompatible_use_platforms_repo_for_constraints
 --incompatible_use_python_toolchains
 --noincompatible_use_python_toolchains
 --incompatible_validate_top_level_header_inclusions
@@ -13165,6 +13225,7 @@ BAZEL_COMMAND_RUN_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -13292,8 +13353,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --ui_event_filters=
 --use_ijars
 --nouse_ijars
---use_singlejar_apkbuilder
---nouse_singlejar_apkbuilder
 --use_target_platform_for_tests
 --nouse_target_platform_for_tests
 --verbose_explanations
@@ -13417,8 +13476,6 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -13446,7 +13503,6 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -13511,6 +13567,8 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -13527,10 +13585,14 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noincompatible_do_not_split_linking_cmdline
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
 --noincompatible_java_common_parameters
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_new_actions_api
 --noincompatible_new_actions_api
 --incompatible_no_attr_license
@@ -13539,6 +13601,8 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noincompatible_no_implicit_file_export
 --incompatible_no_rule_outputs_param
 --noincompatible_no_rule_outputs_param
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_remote_build_event_upload_respect_no_cache
@@ -13602,6 +13666,7 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -13747,8 +13812,6 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -13776,7 +13839,6 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -13843,6 +13905,8 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -13861,10 +13925,14 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noincompatible_enforce_config_setting_visibility
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
 --noincompatible_java_common_parameters
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_new_actions_api
 --noincompatible_new_actions_api
 --incompatible_no_attr_license
@@ -13873,6 +13941,8 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noincompatible_no_implicit_file_export
 --incompatible_no_rule_outputs_param
 --noincompatible_no_rule_outputs_param
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_remote_build_event_upload_respect_no_cache
@@ -13941,6 +14011,7 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -14022,7 +14093,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --apple_crosstool_top=label
 --apple_generate_dsym
 --noapple_generate_dsym
---apple_grte_top=label
 --aspects=
 --aspects_parameters=
 --attempt_to_print_relative_paths
@@ -14233,8 +14303,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
 --experimental_execution_log_file=path
---experimental_execution_log_spawn_metrics
---noexperimental_execution_log_spawn_metrics
 --experimental_extra_action_filter=
 --experimental_extra_action_top_level_only
 --noexperimental_extra_action_top_level_only
@@ -14244,8 +14312,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noexperimental_filter_library_jar_with_program_jar
 --experimental_generate_llvm_lcov
 --noexperimental_generate_llvm_lcov
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -14281,6 +14347,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noexperimental_omitfp
 --experimental_parallel_aquery_output
 --noexperimental_parallel_aquery_output
+--experimental_persistent_aar_extractor
+--noexperimental_persistent_aar_extractor
 --experimental_platform_in_output_dir
 --noexperimental_platform_in_output_dir
 --experimental_platforms_api
@@ -14311,7 +14379,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -14492,6 +14559,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noincompatible_disable_native_android_rules
 --incompatible_disable_native_apple_binary_rule
 --noincompatible_disable_native_apple_binary_rule
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_runtimes_filegroups
 --noincompatible_disable_runtimes_filegroups
 --incompatible_disable_starlark_host_transitions
@@ -14528,6 +14597,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noincompatible_exclusive_test_sandboxed
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_force_strict_header_check_from_starlark
@@ -14540,6 +14611,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noincompatible_linkopts_in_user_link_flags
 --incompatible_make_thinlto_command_lines_standalone
 --noincompatible_make_thinlto_command_lines_standalone
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_merge_genfiles_directory
 --noincompatible_merge_genfiles_directory
 --incompatible_new_actions_api
@@ -14552,6 +14625,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noincompatible_no_rule_outputs_param
 --incompatible_objc_alwayslink_by_default
 --noincompatible_objc_alwayslink_by_default
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_py2_outputs_are_suffixed
@@ -14604,8 +14679,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noincompatible_use_cc_configure_from_rules_cc
 --incompatible_use_host_features
 --noincompatible_use_host_features
---incompatible_use_platforms_repo_for_constraints
---noincompatible_use_platforms_repo_for_constraints
 --incompatible_use_python_toolchains
 --noincompatible_use_python_toolchains
 --incompatible_validate_top_level_header_inclusions
@@ -14743,6 +14816,7 @@ BAZEL_COMMAND_TEST_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=
@@ -14871,8 +14945,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --ui_event_filters=
 --use_ijars
 --nouse_ijars
---use_singlejar_apkbuilder
---nouse_singlejar_apkbuilder
 --use_target_platform_for_tests
 --nouse_target_platform_for_tests
 --verbose_explanations
@@ -14998,8 +15070,6 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noexperimental_enable_android_migration_apis
 --experimental_enable_scl_dialect
 --noexperimental_enable_scl_dialect
---experimental_get_fixed_configured_action_env
---noexperimental_get_fixed_configured_action_env
 --experimental_google_legacy_api
 --noexperimental_google_legacy_api
 --experimental_guard_against_concurrent_changes
@@ -15027,7 +15097,6 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --experimental_remote_capture_corrupted_outputs=path
 --experimental_remote_discard_merkle_trees
 --noexperimental_remote_discard_merkle_trees
---experimental_remote_download_regex=
 --experimental_remote_downloader=
 --experimental_remote_downloader_local_fallback
 --noexperimental_remote_downloader_local_fallback
@@ -15093,6 +15162,8 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noincompatible_depset_for_java_output_source_jars
 --incompatible_depset_for_libraries_to_link_getter
 --noincompatible_depset_for_libraries_to_link_getter
+--incompatible_disable_objc_library_transition
+--noincompatible_disable_objc_library_transition
 --incompatible_disable_starlark_host_transitions
 --noincompatible_disable_starlark_host_transitions
 --incompatible_disable_target_provider_fields
@@ -15109,10 +15180,14 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noincompatible_do_not_split_linking_cmdline
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
+--incompatible_fail_on_unknown_attributes
+--noincompatible_fail_on_unknown_attributes
 --incompatible_fix_package_group_reporoot_syntax
 --noincompatible_fix_package_group_reporoot_syntax
 --incompatible_java_common_parameters
 --noincompatible_java_common_parameters
+--incompatible_merge_fixed_and_default_shell_env
+--noincompatible_merge_fixed_and_default_shell_env
 --incompatible_new_actions_api
 --noincompatible_new_actions_api
 --incompatible_no_attr_license
@@ -15121,6 +15196,8 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noincompatible_no_implicit_file_export
 --incompatible_no_rule_outputs_param
 --noincompatible_no_rule_outputs_param
+--incompatible_objc_provider_remove_linking_info
+--noincompatible_objc_provider_remove_linking_info
 --incompatible_package_group_has_public_syntax
 --noincompatible_package_group_has_public_syntax
 --incompatible_remote_build_event_upload_respect_no_cache
@@ -15184,6 +15261,7 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --remote_download_all
 --remote_download_minimal
 --remote_download_outputs={all,minimal,toplevel}
+--remote_download_regex=
 --remote_download_symlink_template=
 --remote_download_toplevel
 --remote_downloader_header=

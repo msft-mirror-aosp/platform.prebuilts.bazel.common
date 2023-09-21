@@ -60,6 +60,9 @@ for jar in "${common_jars[@]}"
 do
   unzip -o -d ${common_bazel_dir}/remote_java_tools java_tools.zip "java_tools/${jar}"
 done
+# update errorprone default checks
+root_dir=$(realpath "${common_bazel_dir}/../../..")
+${root_dir}/build/bazel/rules/java/errorprone/errorProneCompatibilityFlags.sh ${root_dir}
 
 echo "downloading android_tools..."
 curl "${android_tools_url}" --output android_tools.tar
