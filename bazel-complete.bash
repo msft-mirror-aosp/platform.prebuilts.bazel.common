@@ -940,8 +940,6 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_resolved_file_instead_of_workspace=
@@ -1001,6 +999,8 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noincompatible_disallow_symlink_file_to_dir
 --incompatible_do_not_split_linking_cmdline
 --noincompatible_do_not_split_linking_cmdline
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
 --incompatible_fail_on_unknown_attributes
@@ -1110,6 +1110,8 @@ BAZEL_COMMAND_ANALYZE_PROFILE_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --show_progress
@@ -1246,6 +1248,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --compiler=
 --config=
 --conlyopt=
+--consistent_labels
+--noconsistent_labels
 --copt=
 --coverage_output_generator=label
 --coverage_report_generator=label
@@ -1469,8 +1473,6 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_repository_resolved_file=
@@ -1680,6 +1682,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noincompatible_enable_android_toolchain_resolution
 --incompatible_enable_apple_toolchain_resolution
 --noincompatible_enable_apple_toolchain_resolution
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_enforce_config_setting_visibility
 --noincompatible_enforce_config_setting_visibility
 --incompatible_exclusive_test_sandboxed
@@ -1958,6 +1962,8 @@ BAZEL_COMMAND_AQUERY_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --reuse_sandbox_directories
@@ -2428,8 +2434,6 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_repository_resolved_file=
@@ -2622,6 +2626,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noincompatible_enable_android_toolchain_resolution
 --incompatible_enable_apple_toolchain_resolution
 --noincompatible_enable_apple_toolchain_resolution
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_enforce_config_setting_visibility
 --noincompatible_enforce_config_setting_visibility
 --incompatible_exclusive_test_sandboxed
@@ -2871,6 +2877,8 @@ BAZEL_COMMAND_BUILD_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --reuse_sandbox_directories
@@ -3339,8 +3347,6 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_repository_resolved_file=
@@ -3534,6 +3540,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noincompatible_enable_android_toolchain_resolution
 --incompatible_enable_apple_toolchain_resolution
 --noincompatible_enable_apple_toolchain_resolution
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_enforce_config_setting_visibility
 --noincompatible_enforce_config_setting_visibility
 --incompatible_exclusive_test_sandboxed
@@ -3784,6 +3792,8 @@ BAZEL_COMMAND_CANONICALIZE_FLAGS_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --reuse_sandbox_directories
@@ -4252,8 +4262,6 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_repository_resolved_file=
@@ -4449,6 +4457,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noincompatible_enable_android_toolchain_resolution
 --incompatible_enable_apple_toolchain_resolution
 --noincompatible_enable_apple_toolchain_resolution
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_enforce_config_setting_visibility
 --noincompatible_enforce_config_setting_visibility
 --incompatible_exclusive_test_sandboxed
@@ -4700,6 +4710,8 @@ BAZEL_COMMAND_CLEAN_FLAGS="
 --noremove_all_convenience_symlinks
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --reuse_sandbox_directories
@@ -5167,8 +5179,6 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_repository_resolved_file=
@@ -5361,6 +5371,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noincompatible_enable_android_toolchain_resolution
 --incompatible_enable_apple_toolchain_resolution
 --noincompatible_enable_apple_toolchain_resolution
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_enforce_config_setting_visibility
 --noincompatible_enforce_config_setting_visibility
 --incompatible_exclusive_test_sandboxed
@@ -5611,6 +5623,8 @@ BAZEL_COMMAND_CONFIG_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --reuse_sandbox_directories
@@ -6076,8 +6090,6 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_repository_resolved_file=
@@ -6270,6 +6282,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noincompatible_enable_android_toolchain_resolution
 --incompatible_enable_apple_toolchain_resolution
 --noincompatible_enable_apple_toolchain_resolution
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_enforce_config_setting_visibility
 --noincompatible_enforce_config_setting_visibility
 --incompatible_exclusive_test_sandboxed
@@ -6521,6 +6535,8 @@ BAZEL_COMMAND_COVERAGE_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --reuse_sandbox_directories
@@ -6768,6 +6784,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --compiler=
 --config=
 --conlyopt=
+--consistent_labels
+--noconsistent_labels
 --copt=
 --coverage_output_generator=label
 --coverage_report_generator=label
@@ -6991,8 +7009,6 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_repository_resolved_file=
@@ -7194,6 +7210,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noincompatible_enable_android_toolchain_resolution
 --incompatible_enable_apple_toolchain_resolution
 --noincompatible_enable_apple_toolchain_resolution
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_enforce_config_setting_visibility
 --noincompatible_enforce_config_setting_visibility
 --incompatible_exclusive_test_sandboxed
@@ -7476,6 +7494,8 @@ BAZEL_COMMAND_CQUERY_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --reuse_sandbox_directories
@@ -7758,8 +7778,6 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_resolved_file_instead_of_workspace=
@@ -7819,6 +7837,8 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noincompatible_disallow_symlink_file_to_dir
 --incompatible_do_not_split_linking_cmdline
 --noincompatible_do_not_split_linking_cmdline
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
 --incompatible_fail_on_unknown_attributes
@@ -7930,6 +7950,8 @@ BAZEL_COMMAND_DUMP_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --rule_classes
@@ -7963,6 +7985,8 @@ BAZEL_COMMAND_DUMP_FLAGS="
 "
 BAZEL_COMMAND_FETCH_ARGUMENT="label"
 BAZEL_COMMAND_FETCH_FLAGS="
+--all
+--noall
 --allow_yanked_versions=
 --announce_rc
 --noannounce_rc
@@ -8101,8 +8125,6 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_repository_resolved_file=
@@ -8165,6 +8187,8 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noincompatible_disallow_symlink_file_to_dir
 --incompatible_do_not_split_linking_cmdline
 --noincompatible_do_not_split_linking_cmdline
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_enforce_config_setting_visibility
 --noincompatible_enforce_config_setting_visibility
 --incompatible_existing_rules_immutable_view
@@ -8280,6 +8304,8 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --show_loading_progress
@@ -8445,8 +8471,6 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_resolved_file_instead_of_workspace=
@@ -8507,6 +8531,8 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noincompatible_disallow_symlink_file_to_dir
 --incompatible_do_not_split_linking_cmdline
 --noincompatible_do_not_split_linking_cmdline
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
 --incompatible_fail_on_unknown_attributes
@@ -8617,6 +8643,8 @@ BAZEL_COMMAND_HELP_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --short
@@ -8976,8 +9004,6 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_repository_resolved_file=
@@ -9170,6 +9196,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noincompatible_enable_android_toolchain_resolution
 --incompatible_enable_apple_toolchain_resolution
 --noincompatible_enable_apple_toolchain_resolution
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_enforce_config_setting_visibility
 --noincompatible_enforce_config_setting_visibility
 --incompatible_exclusive_test_sandboxed
@@ -9419,6 +9447,8 @@ BAZEL_COMMAND_INFO_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --reuse_sandbox_directories
@@ -9690,8 +9720,6 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_resolved_file_instead_of_workspace=
@@ -9751,6 +9779,8 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noincompatible_disallow_symlink_file_to_dir
 --incompatible_do_not_split_linking_cmdline
 --noincompatible_do_not_split_linking_cmdline
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
 --incompatible_fail_on_unknown_attributes
@@ -9860,6 +9890,8 @@ BAZEL_COMMAND_LICENSE_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --show_progress
@@ -10222,8 +10254,6 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_repository_resolved_file=
@@ -10416,6 +10446,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noincompatible_enable_android_toolchain_resolution
 --incompatible_enable_apple_toolchain_resolution
 --noincompatible_enable_apple_toolchain_resolution
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_enforce_config_setting_visibility
 --noincompatible_enforce_config_setting_visibility
 --incompatible_exclusive_test_sandboxed
@@ -10669,6 +10701,8 @@ BAZEL_COMMAND_MOBILE_INSTALL_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --reuse_sandbox_directories
@@ -10948,8 +10982,6 @@ BAZEL_COMMAND_MOD_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_resolved_file_instead_of_workspace=
@@ -11019,6 +11051,8 @@ BAZEL_COMMAND_MOD_FLAGS="
 --noincompatible_disallow_symlink_file_to_dir
 --incompatible_do_not_split_linking_cmdline
 --noincompatible_do_not_split_linking_cmdline
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_enforce_config_setting_visibility
 --noincompatible_enforce_config_setting_visibility
 --incompatible_existing_rules_immutable_view
@@ -11135,6 +11169,8 @@ BAZEL_COMMAND_MOD_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --show_loading_progress
@@ -11497,8 +11533,6 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_repository_resolved_file=
@@ -11691,6 +11725,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noincompatible_enable_android_toolchain_resolution
 --incompatible_enable_apple_toolchain_resolution
 --noincompatible_enable_apple_toolchain_resolution
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_enforce_config_setting_visibility
 --noincompatible_enforce_config_setting_visibility
 --incompatible_exclusive_test_sandboxed
@@ -11941,6 +11977,8 @@ BAZEL_COMMAND_PRINT_ACTION_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --reuse_sandbox_directories
@@ -12116,6 +12154,8 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --check_direct_dependencies={off,warning,error}
 --color={yes,no,auto}
 --config=
+--consistent_labels
+--noconsistent_labels
 --credential_helper=
 --credential_helper_cache_duration=
 --credential_helper_timeout=
@@ -12215,8 +12255,6 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_repository_resolved_file=
@@ -12289,6 +12327,8 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noincompatible_display_source_file_location
 --incompatible_do_not_split_linking_cmdline
 --noincompatible_do_not_split_linking_cmdline
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_enforce_config_setting_visibility
 --noincompatible_enforce_config_setting_visibility
 --incompatible_existing_rules_immutable_view
@@ -12439,6 +12479,8 @@ BAZEL_COMMAND_QUERY_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --show_loading_progress
@@ -12808,8 +12850,6 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_repository_resolved_file=
@@ -13002,6 +13042,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noincompatible_enable_android_toolchain_resolution
 --incompatible_enable_apple_toolchain_resolution
 --noincompatible_enable_apple_toolchain_resolution
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_enforce_config_setting_visibility
 --noincompatible_enforce_config_setting_visibility
 --incompatible_exclusive_test_sandboxed
@@ -13251,6 +13293,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --reuse_sandbox_directories
@@ -13521,8 +13565,6 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_resolved_file_instead_of_workspace=
@@ -13583,6 +13625,8 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noincompatible_disallow_symlink_file_to_dir
 --incompatible_do_not_split_linking_cmdline
 --noincompatible_do_not_split_linking_cmdline
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
 --incompatible_fail_on_unknown_attributes
@@ -13692,6 +13736,8 @@ BAZEL_COMMAND_SHUTDOWN_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --show_progress
@@ -13857,8 +13903,6 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_repository_resolved_file=
@@ -13921,6 +13965,8 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noincompatible_disallow_symlink_file_to_dir
 --incompatible_do_not_split_linking_cmdline
 --noincompatible_do_not_split_linking_cmdline
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_enforce_config_setting_visibility
 --noincompatible_enforce_config_setting_visibility
 --incompatible_existing_rules_immutable_view
@@ -14037,6 +14083,8 @@ BAZEL_COMMAND_SYNC_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --show_loading_progress
@@ -14397,8 +14445,6 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_repository_resolved_file=
@@ -14591,6 +14637,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noincompatible_enable_android_toolchain_resolution
 --incompatible_enable_apple_toolchain_resolution
 --noincompatible_enable_apple_toolchain_resolution
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_enforce_config_setting_visibility
 --noincompatible_enforce_config_setting_visibility
 --incompatible_exclusive_test_sandboxed
@@ -14842,6 +14890,8 @@ BAZEL_COMMAND_TEST_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --reuse_sandbox_directories
@@ -15115,8 +15165,6 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noexperimental_repo_remote_exec
 --experimental_repository_cache_hardlinks
 --noexperimental_repository_cache_hardlinks
---experimental_repository_cache_urls_as_default_canonical_id
---noexperimental_repository_cache_urls_as_default_canonical_id
 --experimental_repository_downloader_retries=
 --experimental_repository_hash_file=
 --experimental_resolved_file_instead_of_workspace=
@@ -15178,6 +15226,8 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noincompatible_disallow_symlink_file_to_dir
 --incompatible_do_not_split_linking_cmdline
 --noincompatible_do_not_split_linking_cmdline
+--incompatible_enable_proto_toolchain_resolution
+--noincompatible_enable_proto_toolchain_resolution
 --incompatible_existing_rules_immutable_view
 --noincompatible_existing_rules_immutable_view
 --incompatible_fail_on_unknown_attributes
@@ -15287,6 +15337,8 @@ BAZEL_COMMAND_VERSION_FLAGS="
 --noremote_verify_downloads
 --repo_env=
 --repository_cache=path
+--repository_cache_urls_as_default_canonical_id
+--norepository_cache_urls_as_default_canonical_id
 --repository_disable_download
 --norepository_disable_download
 --show_progress
