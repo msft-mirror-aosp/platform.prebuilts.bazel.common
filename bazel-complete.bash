@@ -8104,6 +8104,7 @@ BAZEL_COMMAND_FETCH_FLAGS="
 --noremote_upload_local_results
 --remote_verify_downloads
 --noremote_verify_downloads
+--repo=
 --repo_env=
 --repository_cache=path
 --repository_cache_urls_as_default_canonical_id
@@ -12971,6 +12972,8 @@ BAZEL_COMMAND_RUN_FLAGS="
 --norepository_disable_download
 --reuse_sandbox_directories
 --noreuse_sandbox_directories
+--run
+--norun
 --run_under=
 --run_validations
 --norun_validations
